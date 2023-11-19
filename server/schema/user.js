@@ -20,5 +20,5 @@ userSchema.methods.comparePasswords = function(otherPassword, cb) {
     cb(this.password == otherPassword); 
 }
 
-const userModel = mongoose.model("User", userSchema); 
-module.exports = {userModel}; 
+const User = mongoose.model("User", userSchema); 
+module.exports = {User}; 
