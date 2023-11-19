@@ -3,7 +3,8 @@ var path = require('path');
 var cookieParser = require('cookie-parser');
 var logger = require('morgan');
 var mongoose = require('mongoose'); 
-const dotenv = require('dotenv');
+var dotenv = require('dotenv');
+var session = require('express-session')
 
 var indexRouter = require('./routes/index');
 var usersRouter = require('./routes/users');
@@ -22,8 +23,15 @@ mongoose.connect(process.env.MONGODB_ACCESS).then(() => {
 app.use(logger('dev'));
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
+app.use(session({
+    secret: process.env.SESSION_SECRET,
+    cookie: {
+        maxAge: 1000 * 60 * 60 * 24, //one day
+    },
+    saveUninitialized: true,
+    resave: false
+}))
 app.use(cookieParser());
-app.use(express.static(path.join(__dirname, 'public')));
 
 app.use('/', indexRouter);
 app.use('/users', usersRouter);
