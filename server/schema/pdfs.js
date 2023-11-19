@@ -9,9 +9,17 @@ const testSchema = new Schema({
     title: String,
     upload_date: Date, 
     class: String, 
-    quarter: String, 
+    quarter: {
+        type: String,
+        enum: ["Fall", "Winter", "Spring", "Summer"]
+    }, 
     year: Number,
-    test_type: String
+    test_type: {
+        type: String,
+        enum: ["Quiz", "Midterm", "Final", "Practice Quiz", "Practice Midterm", "Practice Final"]
+    },
+    has_solution: Boolean, 
+    users_notes: String
    }
 )
 
