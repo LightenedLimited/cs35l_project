@@ -31,8 +31,24 @@ router.post("/login", function(req, res, next) {
 
 
 router.post("/logout", function(req, res, next) {
-  req.session.destroy(); 
-  res.status(200); 
+  	req.session.destroy(); 
+  	res.status(200); 
+})
+
+router.post("/create", function(req, res, next) {
+	var candidateUsername = req.body.username; 
+  	var candidatePassword = req.body.password; 
+	User.exists({username: candidateUsername}).then((exists) => {
+		if(exists) return res.status(400).send("Username exists"); 
+		const newUser = new User({username: candidateUsername, password: candidatePassword}); 
+		newUser.save().then((success) => {
+			res.sendStatus(201); 
+		}).catch(err => {
+			res.status(500).send(err); 
+		}) 
+	}).catch(err => {
+		res.status(500).send(err); 
+	})
 })
 
 
