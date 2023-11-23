@@ -17,7 +17,7 @@ router.post("/login", function(req, res, next) {
     user.comparePasswords(candidatePassword, (eval) => {
       if(eval) {
         session = req.session; 
-        session.userid = candidateUsername; 
+        session.userid = user._id; 
         res.sendStatus(200); 
       }
       else {
