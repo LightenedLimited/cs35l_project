@@ -52,4 +52,16 @@ router.post("/create", function(req, res, next) {
 })
 
 
+router.get('/validate/:id', (req, res, next) => {
+  let candidateEmail = req.params.id
+  console.log('email:', candidateEmail)
+  User.exists({email: candidateEmail}).then((exists) => {
+    if (exists){
+      return res.status(200).send({emailInUse: true})
+    } 
+  }).catch(err => {
+    res.status(500).send(err)
+  })
+})
+
 module.exports = router;
