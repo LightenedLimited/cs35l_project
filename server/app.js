@@ -5,6 +5,7 @@ var logger = require('morgan');
 var mongoose = require('mongoose'); 
 var dotenv = require('dotenv');
 var session = require('express-session')
+const cors = require('cors')
 
 var indexRouter = require('./routes/index');
 var usersRouter = require('./routes/users');
@@ -22,6 +23,7 @@ mongoose.connect(process.env.MONGODB_ACCESS).then(() => {
     console.log(err); 
 })
 
+app.use(cors())
 app.use(logger('dev'));
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
