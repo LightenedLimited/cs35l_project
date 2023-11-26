@@ -98,7 +98,7 @@ export function Login({authenticated, setAuthenticated}){
 
     return (
         <>
-            <h1>Login/Signup</h1>
+            <h1>{loginState ? '*Login*/Sign Up' : 'Login/*Sign Up*'}</h1>
             <h3>DEBUG: {authenticated ? 'authenticated' : 'not authenticated'}</h3>
             <form>
                 <input type='email' placeholder='email' onChange={e => setEmailInput(e.target.value)}></input>
