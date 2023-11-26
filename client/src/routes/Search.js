@@ -1,15 +1,27 @@
 import { useState } from 'react'
 
+
 export function Search() {
+    //input boxes
     const [subject, setSubject] = useState("");
     const [professor, setProfessor] = useState("")
     const [course, setCourse] = useState("")
-    const [query, setQuery] = useState("")
+    //quarters
     const [fall, setFall] = useState(false)
     const [winter, setWinter] = useState(false)
     const [spring, setSpring] = useState(false)
     const [summer, setSummer] = useState(false)
+    //has solution
     const [hasSolution, setSolution] = useState(false)
+    //test types
+    const [midterm, setMidterm] = useState(false)
+    const [quiz, setQuiz] = useState(false)
+    const [final, setFinal] = useState(false)
+    const [practiceFinal, setPracticeFinal] = useState(false)
+    const [practiceMidterm, setPracticeMidterm] = useState(false)
+    const [practiceQuiz, setPracticeQuiz] = useState(false)
+
+    const [query, setQuery] = useState("")
 
 
     return (
@@ -37,65 +49,53 @@ export function Search() {
                 ></input>
             </form>
             <form>
-                <label>
-                    <input
-                        type='checkbox'
-                        checked={fall}
-                        onChange={(e) => setFall(e.target.checked)}
-                    ></input>
-                    Fall
-                </label>
-                <label>
-                    <input
-                        type='checkbox'
-                        checked={winter}
-                        onChange={(e) => setWinter(e.target.checked)}
-                    ></input>
-                    Winter
-                </label>
-                <label>
-                    <input
-                        type='checkbox'
-                        checked={spring}
-                        onChange={(e) => setSpring(e.target.checked)}
-                    ></input>
-                    Spring
-                </label>
-                <label>
-                    <input
-                        type='checkbox'
-                        checked={summer}
-                        onChange={(e) => setSummer(e.target.checked)}
-                    ></input>
-                    Summer
-                </label>
+                <CheckBox state={fall} setState={setFall} label='Fall'></CheckBox>
+                <CheckBox state={winter} setState={setWinter} label='Winter'></CheckBox>
+                <CheckBox state={spring} setState={setSpring} label='Spring'></CheckBox>
+                <CheckBox state={summer} setState={setSummer} label='Summer'></CheckBox>
             </form>
             <form>
-                <label>
-                    <input
-                        type='checkbox'
-                        checked={hasSolution}
-                        onChange={(e) => setSolution(e.target.checked)}
-                    ></input>
-                    Only Tests with Solutions?
-                </label>
+                <CheckBox state={hasSolution} setState={setSolution} label='Only Tests with Solutions?'></CheckBox>
             </form>
             <form>
-                <button type="button" label="SEARCH" onClick={(e) => console.log(generateQuery(subject, professor, course, hasSolution))}/>
+                <CheckBox state={practiceMidterm} setState={setPracticeMidterm} label='Practice Midterm'></CheckBox>
+                <CheckBox state={practiceFinal} setState={setPracticeFinal} label='Practice Final'></CheckBox>
+                <CheckBox state={final} setState={setFinal} label='Final'></CheckBox>
+                <CheckBox state={quiz} setState={setQuiz} label='Quiz'></CheckBox>
+                <CheckBox state={midterm} setState={setMidterm} label='Midterm'></CheckBox>
+                <CheckBox state={practiceQuiz} setState={setPracticeQuiz} label='Practice Quiz'></CheckBox>
+            </form>
+            <form>
+                <button type="button" label="SEARCH" onClick={(e) => console.log(generateQuery(subject, professor, course, fall))}/>
             </form>
         </>
         )
 }
 
+function CheckBox({ state, setState, label }) {
+    return (
+        <>
+            <label>
+                <input
+                    type='checkbox'
+                    checked={state}
+                    onChange={(e) => setState(e.target.checked)}
+                ></input>
+                {label}
+            </label>
+        </>
+    )
+}
+
 // for testing console output, eventually can be used to pass query to results
-function generateQuery(subject, professor, course, hasSolution) {
+function generateQuery(subject, professor, course, fall) {
     let temp = "";
     temp += subject;
     temp += ", ";
     temp += professor;
     temp += ", ";
     temp += course;
-    if (hasSolution)
-        temp += ", has solution"
+    if (fall)
+        temp += ", Fall"
     return temp;
 }
