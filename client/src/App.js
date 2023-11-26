@@ -19,7 +19,8 @@ function App() {
       <Route index element={<Landing />} />
       <Route path='login' element={<Login authenticated={authenticated} setAuthenticated={setAuthenticated}/>}/>
       <Route path='upload' element={<Protected authenticated={authenticated} setAuthenticated={setAuthenticated} Content={() => <Upload />} />} />
-      <Route path='search' element={<Protected authenticated={authenticated} setAuthenticated={setAuthenticated} Content={() => <Search />} /> } />
+      {/*<Route path='search' element={<Protected authenticated={authenticated} setAuthenticated={setAuthenticated} Content={() => <Search />} /> } />*/}
+      <Route path='search' element={<Search />}/>
       <Route path='results' element={<Protected authenticated={authenticated} setAuthenticated={setAuthenticated} Content={() => <Results />} />} />
     </Routes>
     </>

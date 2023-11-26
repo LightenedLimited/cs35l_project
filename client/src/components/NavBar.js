@@ -8,6 +8,7 @@ export function NavBar(){
                 <li><Link to='/upload'>Upload</Link></li>
                 <li><Link to='mailto:leroylightning@g.ucla.edu'>Contact Us</Link></li>
                 <li><Link to='/login'>Log In</Link></li>
+                <li><Link to='/search'>Search Uploaded Tests</Link></li>
             </ul>
         </nav>
     )
