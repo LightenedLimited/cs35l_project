@@ -2,5 +2,5 @@
 // if one of these values needs to be changed accross the project
 
 export const globals = {
-    sever_url: 'http:/localhost:3000'
+    server_url: 'http://localhost:3000'
 }
