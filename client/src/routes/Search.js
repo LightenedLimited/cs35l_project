@@ -5,6 +5,11 @@ export function Search() {
     const [professor, setProfessor] = useState("")
     const [course, setCourse] = useState("")
     const [query, setQuery] = useState("")
+    const [fall, setFall] = useState(false)
+    const [winter, setWinter] = useState(false)
+    const [spring, setSpring] = useState(false)
+    const [summer, setSummer] = useState(false)
+
 
     return (
         <>
@@ -29,18 +34,57 @@ export function Search() {
                     value={course}
                     onChange={(e) => setCourse(e.target.value)}
                 ></input>
-                <button type="button" value="SEARCH" onClick={(e) => console.log(generateQuery(subject, professor, course))}/>
+            </form>
+            <form>
+                <label>
+                    <input
+                        type='checkbox'
+                        checked={fall}
+                        onChange={(e) => setFall(e.target.checked)}
+                    ></input>
+                    "Fall"
+                </label>
+                <label>
+                    <input
+                        type='checkbox'
+                        checked={winter}
+                        onChange={(e) => setWinter(e.target.checked)}
+                    ></input>
+                    "Winter"
+                </label>
+                <label>
+                    <input
+                        type='checkbox'
+                        checked={spring}
+                        onChange={(e) => setSpring(e.target.checked)}
+                    ></input>
+                    "Spring"
+                </label>
+                <label>
+                    <input
+                        type='checkbox'
+                        checked={summer}
+                        onChange={(e) => setSummer(e.target.checked)}
+                    ></input>
+                    "Summer"
+                </label>
+            </form>
+            <form>
+                <button type="button" value="SEARCH" onClick={(e) => console.log(generateQuery(subject, professor, course, fall))} />
             </form>
         </>
         )
 }
 
-function generateQuery(subject, professor, course) {
+// for testing console output, eventually can be used to pass html
+function generateQuery(subject, professor, course, fall) {
     let temp = "";
     temp += subject;
     temp += ", ";
     temp += professor;
     temp += ", ";
     temp += course;
+    if (fall)
+        temp += ", Fall"
     return temp;
 }
