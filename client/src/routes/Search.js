@@ -1,3 +1,5 @@
+import '../styles/Search.css'
+
 export function Search() {
     // TODO: change to react form
     return (

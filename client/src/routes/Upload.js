@@ -1,3 +1,4 @@
+import '../styles/Upload.css'
 // we should limit the file size
 import { globals } from '../globals'
 
