@@ -6,7 +6,6 @@ import { useState } from 'react'
 import Select from 'react-select';
 
 import { Dropdown } from '../components/Dropdown';
-import { FileUploader } from '../components/FileUploader';
 
 
 export function Upload() {
