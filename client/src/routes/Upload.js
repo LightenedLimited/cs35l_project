@@ -1,22 +1,66 @@
 import '../styles/Upload.css'
+// we should limit the file size
+import { globals } from '../globals'
+
+import { useState } from 'react'
+import Select from 'react-select';
 
 import { Dropdown } from '../components/Dropdown';
+import { FileUploader } from '../components/FileUploader';
 
 
 export function Upload() {
+    const [file, setFile] = useState(null)
+    function handleFileChange(event) {
+        setFile(event.target.files[0])
+    }
     return (
         <>
         <h1>Upload a Test</h1>
-        <form>
-        <Dropdown loadOptions={() => getAndFormat(getSubjectList)} />
-        <Dropdown loadOptions={() => getAndFormat(getClassList)} />
-        <Dropdown loadOptions={() => getAndFormat(getProffessorList)} />
-        <Dropdown loadOptions={() => getAndFormat(getYearList)} />
-        <input type='file'></input>
-        <button type='submit'>UPLOAD</button>
+        <form onSubmit={(e) => {handleSubmit(e, file)}}>
+            {/* subjects */}
+            <Dropdown loadOptions={() => getAndFormat(getSubjectList)} />
+            {/* class */}
+            <Dropdown loadOptions={() => getAndFormat(getClassList)} />
+            {/* professors */}
+            <Dropdown loadOptions={() => getAndFormat(getProffessorList)} />
+            {/* years */}
+            <Dropdown loadOptions={() => getAndFormat(getYearList)} />
+            {/* test types */}
+            <Select options={formatOptionsArr(testTypeList)} />
+            {/* quarters */}
+            <Select options={formatOptionsArr(quartersList)} />
+            <input type='file' onChange={handleFileChange}/>
+            <button type='submit'>Upload</button>
         </form>
         </>
     )
+}
+
+async function handleSubmit(event, file){
+    event.preventDefault()
+    if (false){ // gonna leave the fetching out until i figure out how tf this works
+        const formData = new FormData()
+        formData.append('file', file)
+        formData.append('filename', file.name)
+        console.log('file', file)
+        console.log('filename', file.name)
+        console.log(formData)
+
+        let res
+        try {
+            res = fetch(`${globals.server_url}/pdfs/upload`, {
+                credentials: 'include',
+                headers: {'content-type': 'multipart/form-data'},
+                method: 'POST',
+                body: formData,
+            }
+            )
+            console.log(res.data)
+        } catch(err){
+            console.log(err)
+        }
+    }
 }
 
 async function getAndFormat(getter /*, formatter */){
@@ -43,6 +87,12 @@ async function getSubjectList(){
     await delay(1000) // delete
     return ['LINGUISTICS', 'COMPUTER SCIENCE', 'POLITICAL SCIENCE', 'MATH', 'ART HISTORY', 'GEOGRAPHY'].sort()
 }
+
+const testTypeList = ['Midterm', 'Final', 'Practice Midterm', 'Practice Final', 'Quiz', 'Other']
+const quartersList = ['Fall', 'Winter', 'Spring', 'Summer Sessions']
+
+// const solutionsList = ['Solutions']
+// solutions should be a checkbox
 
 function formatOptionsArr(options){
     let formatted = []
