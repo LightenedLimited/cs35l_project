@@ -1,4 +1,4 @@
-// holy shit im going crazy right now idk what's going on but i cant get this async dropdown to work so here we go
+import '../styles/Upload.css'
 
 import { Dropdown } from '../components/Dropdown';
 
