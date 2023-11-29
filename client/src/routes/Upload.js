@@ -18,17 +18,27 @@ export function Upload() {
         <h1>Upload a Test</h1>
         <form onSubmit={(e) => {handleSubmit(e, file)}}>
             {/* subjects */}
-            <Dropdown loadOptions={() => getAndFormat(getSubjectList)} />
+            <label for='subject'>Subject</label>
+            <Dropdown name='subject' loadOptions={() => getAndFormat(getSubjectList)} />
             {/* class */}
+            <label for='class'>Class</label>
             <Dropdown loadOptions={() => getAndFormat(getClassList)} />
             {/* professors */}
-            <Dropdown loadOptions={() => getAndFormat(getProffessorList)} />
+            <label for='professor'>Professor</label>
+            <Dropdown name='professor' loadOptions={() => getAndFormat(getProffessorList)} />
             {/* years */}
-            <Dropdown loadOptions={() => getAndFormat(getYearList)} />
+            <label for='year'>Year</label>
+            <Dropdown name='year' loadOptions={() => getAndFormat(getYearList)} />
             {/* test types */}
-            <Select options={formatOptionsArr(testTypeList)} />
+            <label for='test-type'>Test type</label>
+            <Select name='test-type' options={formatOptionsArr(testTypeList)} />
             {/* quarters */}
-            <Select options={formatOptionsArr(quartersList)} />
+            <label for='quarter'>Quarter</label>
+            <Select name='quarter' options={formatOptionsArr(quartersList)} />
+            {/* solutions */}
+            <label for='has-solutions'>Test contains solutions</label>
+            <input name='has-solutions' type='checkbox' />
+            {/* add file */}
             <input type='file' onChange={handleFileChange}/>
             <button type='submit'>Upload</button>
         </form>
