@@ -1,3 +1,5 @@
+import '../styles/Login.css'
+
 // TODO: Store tokens in localstorage on successful login
 
 // idea here: the login/sign up page initially just has username and password forms, but if user enters
@@ -98,11 +100,11 @@ export function Login({authenticated, setAuthenticated}){
 
     return (
         <>
-            <h1>{loginState ? '*Login*/Sign Up' : 'Login/*Sign Up*'}</h1>
+            <h1>{loginState ? '*Login* / Sign Up' : 'Login / *Sign Up*'}</h1>
             <h3>DEBUG: {authenticated ? 'authenticated' : 'not authenticated'}</h3>
             <form>
-                <input type='email' placeholder='email' onChange={e => setEmailInput(e.target.value)}></input>
-                <input type='password' placeholder='password' onChange={e => setPwInput(e.target.value)}></input>
+                <input class="center-block" type='email' placeholder='email' onChange={e => setEmailInput(e.target.value)}></input>
+                <input class="center-block" type='password' placeholder='password' onChange={e => setPwInput(e.target.value)}></input>
                 <ConfPassword loginSt={loginState} confInp={confPwInput} setConfInp={setConfPwInput} />
                 <SubmitBtn valid={handleSubmit} loginSt={loginState} setLoginSt={setLoginState}/>
                 <p>If the specified account doesnt exist, you will be prompted to make one</p>
@@ -113,7 +115,7 @@ export function Login({authenticated, setAuthenticated}){
 
 function SubmitBtn({valid, loginSt, setLoginSt} /* function */){
     return ( // doesnt change button value!
-        <button onClick= { (e) => setLoginSt( valid(e) ) } > {loginSt ? 'LOGIN' : 'SIGN UP'} </button>
+        <button class="center-block" onClick= { (e) => setLoginSt( valid(e) ) } > {loginSt ? 'LOGIN' : 'SIGN UP'} </button>
     )
 }
 

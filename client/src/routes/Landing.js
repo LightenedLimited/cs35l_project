@@ -1,4 +1,5 @@
 // root page with short desciption of project and links to access test bank and stuff
+import '../styles/Landing.css'
 
 function Body(){
     return (<>

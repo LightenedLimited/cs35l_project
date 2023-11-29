@@ -1,0 +1,124 @@
+/* style login page
+
+/* importing fonts */
+@import url('https://fonts.googleapis.com/css2?family=Inconsolata&family=Montserrat&display=swap');
+
+* {
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box;
+  }
+
+body {
+    background-color: #e7ecef;
+    font-family: 'Montserrat', sans-serif; 
+}
+
+h1, h3 {
+    margin-top: 0.8em;
+    margin-bottom: 0.67em;
+    text-align: center;
+}
+
+h1 {
+    color: #274c77;
+    font-family: 'Inconsolata', monospace;
+    font-size: 3em;
+    letter-spacing: 0.06em;
+}
+
+h3 {
+    color: #777a80;
+}
+
+p {
+    color: #6096ba;
+    text-align: center;
+    margin-left: 15%;
+    margin-right: 15%;
+    margin-top: 16px;
+    margin-bottom: 16px;
+}
+
+form {
+    background-color: white;
+    box-sizing: border-box;
+
+    border-style:outset;
+    border-color: #d3dee5;
+    border-radius: 2em;
+    border-width: 0.25em;
+
+    padding: 3%;
+    margin-left: 25%;
+    margin-right: 25%;
+}
+
+.center-block {
+    display: block;
+    margin-right: auto;
+    margin-left: auto;
+}
+
+input {
+    font-family: 'Montserrat', sans-serif;
+    font-weight: 600;
+    font-size: medium;
+    
+    box-sizing: border-box;
+    width: 36%;
+    height: 3em;
+    margin-top: 15px;
+    margin-bottom: 15px;
+    padding: 12px 20px 12px 10px;
+
+    border-radius: 0.5em;
+    border-style: solid;
+    border-color: #d3dee5;
+   
+    background-position: right; 
+    background-repeat: no-repeat;
+    background-position-x: 95%;
+
+    transition: width 0.4s ease-in-out;
+}
+
+  /* icon color is #5FA8D3 */
+input[type="email"] {
+    background-image: url('images/email.png');
+}
+input[type="password"] {
+    background-image: url('images/password.png');
+}
+  
+input[type="email"]:focus,
+input[type="password"]:focus {
+    width: 60%;
+}
+
+button {
+    font-family: 'Montserrat', sans-serif;
+    cursor: pointer;
+    box-sizing: border-box;
+    border-radius: 3em;
+    border-color: #549892;
+    border-style:solid;
+    background-color: #66a39d;
+    font-size: medium;
+    font-weight: 900;
+    color: white;
+    letter-spacing: 0.1em;
+    padding: 1em;
+}
+
+button:hover {
+    background-color: #78b7b1;
+    border-color: #78b7b1;
+}
+
+button:active {
+    background-color: #78b7b1;
+    border-color: #78b7b1;
+    padding: 0.8em;
+    margin-bottom: 1.4em;
+}

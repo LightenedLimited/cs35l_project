@@ -1,0 +1,41 @@
+/* style landing page here */
+
+.logo {
+    display: inline-block;
+    vertical-align: top;
+    width: 50px;
+    height: 50px;
+    margin-left: 1.5%;
+}
+
+.nav-bar {
+    background-color:#71a2a6;
+
+    margin: 0.8em;
+    padding: 0.6%;
+    border-radius: 0.8em;
+}
+
+.nav-bar ul {
+    display: inline-block;
+    /* text-decoration: none; WHY DOESNT THIS WORK */
+    color:white;
+}
+
+.nav-bar li {
+    display: inline-block;
+    text-align: center;
+    padding: 1em;
+    margin-left: 1em;
+    margin-right: 1em;
+    color: white;
+}
+
+.nav-bar li:hover {
+    background-color: white;
+    border-radius: 3em;
+}
+
+.nav-bar-right {
+    float: right;
+}
