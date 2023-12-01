@@ -33,7 +33,8 @@ app.use(session({
         maxAge: 1000 * 60 * 60 * 24, //one day
     },
     saveUninitialized: true,
-    resave: false
+    resave: false, 
+    credentials: true
 }))
 app.use(cookieParser());
 
