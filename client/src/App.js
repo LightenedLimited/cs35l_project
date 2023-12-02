@@ -23,7 +23,8 @@ function App() {
       <Route path='upload' element={<Protected authenticated={authenticated} setAuthenticated={setAuthenticated} Content={() => <Upload />} />} />
       {/*<Route path='search' element={<Protected authenticated={authenticated} setAuthenticated={setAuthenticated} Content={() => <Search />} /> } />*/}
       <Route path='search' element={<Search />}/>
-      <Route path='results' element={<Protected authenticated={authenticated} setAuthenticated={setAuthenticated} Content={() => <Results />} />} />
+      {/*<Route path='results' element={<Protected authenticated={authenticated} setAuthenticated={setAuthenticated} Content={() => <Results />} />} />*/}
+      <Route path='result' element={<Result />}/>
     </Routes>
     </>
 );
