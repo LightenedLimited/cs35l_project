@@ -50,7 +50,7 @@ router.post('/upload', upload.single("pdf"), function(req, res, next) {
 
 
 router.post("/unique/:field", function(req, res, next) {
-    pdf.Test.find(req.body.filter).distinct(req.params.field).then((results) => {
+    pdfs.Test.find(req.body.filter).distinct(req.params.field).then((results) => {
         res.status(200).send(results); 
     }).catch((err) => {
         res.status(500).send(err); 
