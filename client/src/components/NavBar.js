@@ -4,7 +4,7 @@ import '../styles/Landing.css';
 export function NavBar(){
     return ( // need to make logo an actual logo img
         <nav class="nav-bar">
-            <img class="logo" src={require("../styles/images/logo.png")}></img>
+            <img alt = "logo-nav-bar" class="logo" src={require("../styles/images/logo.png")}></img>
             <ul>
                 <li><Link to='/'>BRUIN TEST BANK</Link></li>
             </ul>

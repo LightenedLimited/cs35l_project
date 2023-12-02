@@ -1,0 +1,19 @@
+.home-button {
+    color: #fff;
+    text-align: center;
+    white-space: nowrap;
+    border-radius: 10px;
+    background-color: #0094ff;
+    align-self: center;
+    margin-top: 31px;
+    justify-content: center;
+    padding: 14px 37px 14px 25px;
+    font: 600 20px Montserrat, sans-serif;
+    transition-duration: 0.4s;
+    
+}
+.home-button:hover{
+    background-color: #fff;
+    color: #0094ff;
+    border: 2px solid #0094ff;
+}
