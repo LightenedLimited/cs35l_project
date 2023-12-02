@@ -10,6 +10,7 @@ export function NavBar(){
             </ul>
             <div class = 'nav-bar-right'>
                 <ul>
+                    <li><Link to='/search'>Search</Link></li>
                     <li><Link to='/upload'>Upload</Link></li>
                     <li><Link to='mailto:leroylightning@g.ucla.edu'>Contact Us</Link></li>
                     <li><Link to='/login'>Log In</Link></li>
