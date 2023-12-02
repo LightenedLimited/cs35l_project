@@ -1,4 +1,6 @@
 /* style landing page here */
+/* importing fonts */
+@import url('https://fonts.googleapis.com/css2?family=Inconsolata&family=Montserrat&display=swap');
 
 .logo {
     display: inline-block;
@@ -6,6 +8,45 @@
     width: 50px;
     height: 50px;
     margin-left: 1.5%;
+}
+
+.img-logo {
+    display: inline-block;
+    /* aspect-ratio: 1.01; */
+    object-fit: contain;
+    width: 260px;
+    overflow: hidden;
+    align-self: center;
+    margin-top: 105px;
+    max-width: 100%;
+}
+
+.landing-container {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    padding: 3%;
+    margin: 0 auto;
+}
+
+.login-button {
+    color: #fff;
+    text-align: center;
+    white-space: nowrap;
+    border-radius: 10px;
+    background-color: #0094ff;
+    align-self: center;
+    margin-top: 31px;
+    justify-content: center;
+    padding: 14px 37px 14px 25px;
+    font: 600 20px Montserrat, sans-serif;
+    transition-duration: 0.4s;
+    
+}
+.login-button:hover{
+    background-color: #fff;
+    color: #0094ff;
+    border: 2px solid #0094ff;
 }
 
 .nav-bar {
@@ -21,6 +62,7 @@
     /* text-decoration: none; WHY DOESNT THIS WORK */
     color:white;
 }
+
 
 .nav-bar li {
     display: inline-block;
@@ -39,3 +81,21 @@
 .nav-bar-right {
     float: right;
 }
+
+h1,h2, h3 {
+    margin-top: 0.8em;
+    margin-bottom: 0.67em;
+    text-align: center;
+}
+
+h1 {
+    color: #274c77;
+    font-family: 'Inconsolata', monospace;
+    font-size: 3em;
+    letter-spacing: 0.06em;
+}
+
+h3 {
+    color: #777a80;
+}
+
