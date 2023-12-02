@@ -23,7 +23,6 @@ mongoose.connect(process.env.MONGODB_ACCESS).then(() => {
     console.log(err); 
 })
 
-app.use(cors())
 app.use(logger('dev'));
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
@@ -37,6 +36,18 @@ app.use(session({
     credentials: true
 }))
 app.use(cookieParser());
+app.use(cors({origin: 'http://localhost:3001', credentials: true,}))
+
+
+app.use((req, res, next) => {
+    console.log('lets get this middleware thing going')
+    res.setHeader("Access-Control-Allow-Origin", "http://localhost:3001");
+    res.header(
+      "Access-Control-Allow-Credentials",
+      "true"
+    );
+    next();
+  });
 
 app.use('/', indexRouter);
 app.use('/users', usersRouter);
