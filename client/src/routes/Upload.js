@@ -165,7 +165,7 @@ const quartersList = ["Fall", "Winter", "Spring", "Summer"]
 function formatOptionsArr(options){
     let formatted = []
     for (const i of options) {
-        if (typeof(i) == string)
+        if (typeof(i) == String)
             formatted.push({ label: i, value: i.toLowerCase() })
         else
             formatted.push({ label: i, value: i })
