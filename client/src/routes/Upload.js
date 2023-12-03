@@ -32,8 +32,8 @@ export function Upload() {
         const states = {
             file: file,
             subject: subject,
-            className, className,
-            professor, professor,
+            className: className,
+            professor: professor,
             year: year,
             testType: testType,
             quarter: quarter,
@@ -51,6 +51,7 @@ export function Upload() {
                 return
             }
         }
+        setError('')
 
         console.assert(typeof(solutions) == Boolean)
         const formData = new FormData()
@@ -163,8 +164,11 @@ const quartersList = ["Fall", "Winter", "Spring", "Summer"]
 
 function formatOptionsArr(options){
     let formatted = []
-    for (const i of options){
-        formatted.push({label: i, value: i.toLowerCase})
+    for (const i of options) {
+        if (typeof(i) == string)
+            formatted.push({ label: i, value: i.toLowerCase() })
+        else
+            formatted.push({ label: i, value: i })
     }
     return formatted
 }
