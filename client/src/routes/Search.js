@@ -1,7 +1,10 @@
 import { useState } from 'react'
+import { globals } from '../globals'
+
 import AsyncSelect from 'react-select/async';
 import  Select  from 'react-select'
-import { globals } from '../globals'
+
+import { useNavigate } from 'react-router-dom'
 
 import '../styles/Search.css'
 
@@ -15,10 +18,21 @@ export function Search() {
     const [year, setYear] = useState("")
     const [solutions, setSolutions] = useState(false)
 
-    const [query, setQuery] = useState("")
+    const navigate = useNavigate()
 
-    function sendToResults(){
+    function sendToResults(e){
+        e.preventDefault()
+        // FORMAT FOR QUERIES:
+        /* :[subject]:[class]:[professor]:[year]:[has solutions]:[test type]:[quarter] */
 
+        const queries = [subject, className, professor, year, solutions, testType]
+        for (let i = 0; i < queries.length; i++){
+            queries[i] = queries[i]?.label ?? ''
+        }
+
+        let queryString = ':' + queries.join(':')
+        console.log(queryString)
+        navigate('/' + queryString)
     }
     // todo: add missing params
     return (
