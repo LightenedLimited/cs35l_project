@@ -1,6 +1,6 @@
 import './styles/App.css'
 
-import { Route, Routes } from 'react-router-dom'
+import { Route, Routes, useParams } from 'react-router-dom'
 import { useState } from 'react'
 
 import { Landing } from './routes/Landing'
@@ -24,7 +24,7 @@ function App() {
       {/*<Route path='search' element={<Protected authenticated={authenticated} setAuthenticated={setAuthenticated} Content={() => <Search />} /> } />*/}
       <Route path='search' element={<Search />}/>
       {/*<Route path='results' element={<Protected authenticated={authenticated} setAuthenticated={setAuthenticated} Content={() => <Results />} />} />*/}
-      <Route path='result' element={<Results />}/>
+      <Route path='/results/:query' element={<Results />}/>
     </Routes>
     </>
 );

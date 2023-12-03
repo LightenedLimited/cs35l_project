@@ -32,7 +32,7 @@ export function Search() {
 
         let queryString = ':' + queries.join(':')
         console.log(queryString)
-        navigate('/' + queryString)
+        navigate('/results/' + encodeURI(queryString))
     }
     // todo: add missing params
     return (
