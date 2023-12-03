@@ -42,7 +42,7 @@ export function Upload() {
         }
 
         for (const prop in states){
-            if (prop == 'solutions'){
+            if (prop === 'solutions'){
                 continue
             }
             if (!states[prop]){
