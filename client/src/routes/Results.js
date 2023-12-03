@@ -20,7 +20,8 @@ const arrayDataItems = sampleTests.map(sampleTest =>
         <li>
             {sampleTest.class}-
             {sampleTest.test_type}-
-            {sampleTest.professor}
+            {sampleTest.professor}-
+            {sampleTest["year"]["$numberInt"]}
         </li>
     </h2>
 )
