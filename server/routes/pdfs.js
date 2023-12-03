@@ -19,14 +19,26 @@ const upload = multer({
 
 router.use(validLogin()); 
 
-router.get('/search', function(req, res, next) {
-    const search_filters = req.body; 
+router.get('/search/:query', function(req, res, next) {
+    const encodedQuery = req.params.query;
+    const query = decodeURI(req.params.query)
+    let search_filters
+    try {
+        search_filters = JSON.parse(query)
+    } catch(err){
+        console.log(err)
+        res.status(400).send('Bad request')
+    }
     pdfs.Test.find(search_filters).then((results) => {
         res.json(results); 
+    }).catch(err => {
+        res.status(404)
     })
 })
+    
 
 router.post('/upload', upload.single("pdf"), function(req, res, next) {
+    console.log('lets try to upload some shi')
     const newPDF = new pdfs.Test({
         user_upload_id: req.session.userid, //validated by validLogin
         path: req.file.path, 
@@ -44,12 +56,14 @@ router.post('/upload', upload.single("pdf"), function(req, res, next) {
     newPDF.save().then((success) => {
         res.sendStatus(200); 
     }).catch(err => {
+        console.log(err)
         res.status(400).send(err) 
     })
 }); 
 
 
 router.post("/unique/:field", function(req, res, next) {
+    console.log('trying to find unique', req.params.field)
     pdfs.Test.find(req.body.filter).distinct(req.params.field).then((results) => {
         res.status(200).send(results); 
     }).catch((err) => {

@@ -1,10 +1,41 @@
+import { useParams } from 'react-router-dom';
+
+import { useState, useEffect } from 'react' 
+
 import '../styles/Results.css'
+import { globals } from '../globals'
 
 export function Results() {
+    const [data, setData] = useState(null) 
+    const [loading, setLoading] = useState(false)
+    let { query } = useParams()
+    const decoded = decodeURI(query) // might need to put all this in useEffect
+    let body = parseUrl(decoded)
+    const encoded = encodeURI(JSON.stringify(body))
+
+    useEffect(() => {
+        setLoading(true)
+        fetch(`${globals.server_url}/pdfs/search/${encoded}`, {
+            credentials: 'include',
+            method: 'GET',
+            mode: 'cors',
+        }).then(res => res.json())
+        .then(data =>{
+            console.log(data)
+            setData(data)
+            setLoading(false)
+        })
+        .catch(err => {
+            console.log(err)
+        })
+
+    }, [])
+
     return (
         <>
             <h1>Results</h1>
-            <ul>{arrayDataItems}</ul>
+            <p className='status-box'>{loading ? 'Loading...' : ''}</p>
+            <p>{JSON.stringify(data)}</p>
         </>
     )
 }
@@ -25,3 +56,42 @@ const arrayDataItems = sampleTests.map(sampleTest =>
         </li>
     </h2>
 )
+
+function parseUrl(urlString){
+    let formatted = urlString.slice(1)
+    let args = formatted.split(':')
+    // FORMAT FOR QUERIES:
+    /* :[subject]:[class]:[professor]:[year]:[has solutions]:[test type]:[quarter] */
+    const body = {
+        subject: args[0],
+        class: args[1],
+        professor: args[2],
+        year: args[3],
+        has_solution: (args[4] === 'true') ? true : '',
+        test_type: args[5],
+        quarter: args[6],
+    }
+    for (const prop in body){
+        if (body[prop] === '' || body[prop] === undefined){
+            delete body[prop]
+        }
+    }
+    return body
+}
+
+async function getResults(body){
+    // TODO: handle server not auth error
+    let res, data
+    try {
+        res = await fetch(`${globals.server_url}/search`, {
+            method: 'GET',
+            mode: 'cors',
+            body: JSON.stringify(body)
+        })
+        data = res.json()
+        console.log(data)
+        return data
+    } catch (err){
+        console.log(err)
+    }
+}
