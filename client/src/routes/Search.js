@@ -1,6 +1,7 @@
 import { useState } from 'react'
 import '../styles/Search.css'
 import { Dropdown } from '../components/Dropdown.js'
+import {SearchButton} from '../components/SearchButton.js'
 
 export function Search() {
     //input boxes
@@ -18,20 +19,17 @@ export function Search() {
             <h1>Search</h1>
             <h3>What are you looking for today?</h3>
             <form>
-                <label for='documentType'>I WANT TO FIND</label>
+                <label className = 'search-label' for='documentType'>I WANT TO FIND</label>
                 <Dropdown name='documentType' loadOptions={() => getAndFormat(getDocumentTypeList)} onChange={(e) => setDocumentType(e.value)} />
-                <label for='subject'>FOR SUBJECT</label>
+                <label className = 'search-label' for='subject'>FOR SUBJECT</label>
                 <Dropdown name='subject' loadOptions={() => getAndFormat(getSubjectList)} onChange={(e) => setSubject(e.value)} />
-                <label for='class'>BY COURSE</label>
+                <label className = 'search-label' for='class'>FROM COURSE</label>
                 <Dropdown name='class' loadOptions={() => getAndFormat(getClassList)} onChange={(e) => setCourse(e.value)} />
-                <label for='professor'>BY PROFESSOR</label>
+                <label className = 'search-label' for='professor'>FROM PROFESSOR</label>
                 <Dropdown name='professor' loadOptions={() => getAndFormat(getProffessorList)} onChange={(e) => setProfessor(e.value)} />
-                <label for='year'>FROM YEAR</label>
+                <label className = 'search-label' for='year'>FROM YEAR</label>
                 <Dropdown name='year' loadOptions={() => getAndFormat(getYearList)} onChange={(e) => setYear(e.value)} />
-            </form>
-            <form>
-                <label for='search'>SEARCH</label>
-                <button type="button" label="SEARCH" onClick={(e) => console.log(generateQuery(subject, professor, course))}/>
+                <SearchButton query={{ subject, professor, course }}> Search </SearchButton> 
             </form>
         </>
         )
@@ -54,16 +52,6 @@ function CheckBox({ state, setState, label }) {
 }
 */
 
-// for testing console output, eventually can be used to pass query to results
-function generateQuery(subject, professor, course) {
-    let temp = "";
-    temp += subject;
-    temp += ", ";
-    temp += professor;
-    temp += ", ";
-    temp += course;
-    return temp;
-}
 
 //testing functions to eventually be replaced with data we pull from server
 async function getAndFormat(getter /*, formatter */) {

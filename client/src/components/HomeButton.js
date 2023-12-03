@@ -1,7 +1,7 @@
 import { useNavigate } from 'react-router-dom'
-import '../styles/Home_Button.css'
+import '../styles/HomeButton.css'
 
-export function Home_Button(){
+export function HomeButton(){
     const navigate = useNavigate()
     return (
         <div 
