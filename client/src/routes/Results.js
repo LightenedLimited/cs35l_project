@@ -19,10 +19,10 @@ export function Results() {
             credentials: 'include',
             method: 'GET',
             mode: 'cors',
-        }).then(res =>{
-            res.json()
-        }).then(parsed => {
-            setData(parsed)
+        }).then(res => res.json())
+        .then(data =>{
+            console.log(data)
+            setData(data)
             setLoading(false)
         })
         .catch(err => {
@@ -31,11 +31,11 @@ export function Results() {
 
     }, [])
 
-    console.log(body)
     return (
         <>
             <h1>Results</h1>
-            <ul>{arrayDataItems}</ul>
+            <p className='status-box'>{loading ? 'Loading...' : ''}</p>
+            <p>{JSON.stringify(data)}</p>
         </>
     )
 }
