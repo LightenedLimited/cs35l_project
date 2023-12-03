@@ -1,13 +1,36 @@
 import { useParams } from 'react-router-dom';
 
+import { useState, useEffect } from 'react' 
+
 import '../styles/Results.css'
 import { globals } from '../globals'
 
 export function Results() {
+    const [data, setData] = useState(null) 
+    const [loading, setLoading] = useState(false)
     let { query } = useParams()
-    const decoded = decodeURI(query)
-    
+    const decoded = decodeURI(query) // might need to put all this in useEffect
     let body = parseUrl(decoded)
+    const encoded = encodeURI(JSON.stringify(body))
+
+    useEffect(() => {
+        setLoading(true)
+        fetch(`${globals.server_url}/pdfs/search/${encoded}`, {
+            credentials: 'include',
+            method: 'GET',
+            mode: 'cors',
+        }).then(res =>{
+            res.json()
+        }).then(parsed => {
+            setData(parsed)
+            setLoading(false)
+        })
+        .catch(err => {
+            console.log(err)
+        })
+
+    }, [])
+
     console.log(body)
     return (
         <>
