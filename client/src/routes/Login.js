@@ -119,7 +119,7 @@ function SubmitBtn({valid, loginSt, setLoginSt} /* function */){
     return ( // doesnt change button value!
     <button 
         class="log-button center-block" 
-        nClick= { (e) => setLoginSt( valid(e) ) } > {loginSt ? 'LOGIN' : 'SIGN UP'} </button>
+        onClick= { (e) => setLoginSt( valid(e) ) } > {loginSt ? 'LOGIN' : 'SIGN UP'} </button>
     )
 }
 
