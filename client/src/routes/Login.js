@@ -45,6 +45,8 @@ export function Login({authenticated, setAuthenticated}){
         try {
             console.log('trying fetch')
             res = await fetch(`${globals.server_url}/users/validate/${encodeURI(emailInput)}`, {
+                mode: 'cors',
+                credentials: 'include',
                 method: 'GET',
                 headers: {
                     'Content-Type': 'application/json',
@@ -138,6 +140,8 @@ async function attemptLogin(usernameInp, passwordInp){
     try {
         console.log('sending a request to server to check login creds')
         response = await fetch(`${globals.server_url}/users/login`, {
+            mode: 'cors',
+            credentials: 'include',
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
@@ -171,6 +175,8 @@ async function attempSignUp(usernameInp, passwordInp, confPasswordInp){
     try {
         console.log('outgoing creation request body:', {'username': usernameInp, 'password': passwordInp,})
         response = await fetch(`${globals.server_url}/users/create`, {
+            mode: 'cors',
+            credentials: 'include',
             method: 'POST',
             headers: { "Content-Type": "application/json", },
             body: JSON.stringify({
