@@ -1,37 +1,7 @@
-/* style login page
+/* style login page */
 
-/* importing fonts */
-@import url('https://fonts.googleapis.com/css2?family=Inconsolata&family=Montserrat&display=swap');
-
-* {
-    padding: 0;
-    margin: 0;
-    box-sizing: border-box;
-  }
-
-body {
-    background-color: #e7ecef;
+.login-p {
     font-family: 'Montserrat', sans-serif; 
-}
-
-h1, h3 {
-    margin-top: 0.8em;
-    margin-bottom: 0.67em;
-    text-align: center;
-}
-
-h1 {
-    color: #274c77;
-    font-family: 'Inconsolata', monospace;
-    font-size: 3em;
-    letter-spacing: 0.06em;
-}
-
-h3 {
-    color: #777a80;
-}
-
-p {
     color: #6096ba;
     text-align: center;
     margin-left: 15%;
@@ -40,7 +10,7 @@ p {
     margin-bottom: 16px;
 }
 
-form {
+.login-form {
     background-color: white;
     box-sizing: border-box;
 
@@ -60,7 +30,7 @@ form {
     margin-left: auto;
 }
 
-input {
+.login-input {
     font-family: 'Montserrat', sans-serif;
     font-weight: 600;
     font-size: medium;
@@ -84,19 +54,19 @@ input {
 }
 
   /* icon color is #5FA8D3 */
-input[type="email"] {
+  .login-input[type="email"] {
     background-image: url('images/email.png');
 }
-input[type="password"] {
+.login-input[type="password"] {
     background-image: url('images/password.png');
 }
   
-input[type="email"]:focus,
-input[type="password"]:focus {
+.login-input[type="email"]:focus,
+.login-input[type="password"]:focus {
     width: 60%;
 }
 
-button {
+.log-button {
     font-family: 'Montserrat', sans-serif;
     cursor: pointer;
     box-sizing: border-box;
@@ -111,12 +81,12 @@ button {
     padding: 1em;
 }
 
-button:hover {
+.log-button:hover {
     background-color: #78b7b1;
     border-color: #78b7b1;
 }
 
-button:active {
+.log-button:active {
     background-color: #78b7b1;
     border-color: #78b7b1;
     padding: 0.8em;

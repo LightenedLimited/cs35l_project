@@ -104,12 +104,12 @@ export function Login({authenticated, setAuthenticated}){
         <>
             <h1>{loginState ? '*Login* / Sign Up' : 'Login / *Sign Up*'}</h1>
             <h3>DEBUG: {authenticated ? 'authenticated' : 'not authenticated'}</h3>
-            <form>
-                <input class="center-block" type='email' placeholder='email' onChange={e => setEmailInput(e.target.value)}></input>
-                <input class="center-block" type='password' placeholder='password' onChange={e => setPwInput(e.target.value)}></input>
+            <form class="login-form">
+                <input class="login-input center-block" type='email' placeholder='email' onChange={e => setEmailInput(e.target.value)}></input>
+                <input class="login-input center-block" type='password' placeholder='password' onChange={e => setPwInput(e.target.value)}></input>
                 <ConfPassword loginSt={loginState} confInp={confPwInput} setConfInp={setConfPwInput} />
                 <SubmitBtn valid={handleSubmit} loginSt={loginState} setLoginSt={setLoginState}/>
-                <p>If the specified account doesnt exist, you will be prompted to make one</p>
+                <p class="login-p">If the specified account doesnt exist, you will be prompted to make one</p>
             </form>
         </>
     )
@@ -117,7 +117,9 @@ export function Login({authenticated, setAuthenticated}){
 
 function SubmitBtn({valid, loginSt, setLoginSt} /* function */){
     return ( // doesnt change button value!
-        <button class="center-block" onClick= { (e) => setLoginSt( valid(e) ) } > {loginSt ? 'LOGIN' : 'SIGN UP'} </button>
+    <button 
+        class="log-button center-block" 
+        nClick= { (e) => setLoginSt( valid(e) ) } > {loginSt ? 'LOGIN' : 'SIGN UP'} </button>
     )
 }
 
