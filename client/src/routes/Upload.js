@@ -112,7 +112,7 @@ export function Upload() {
             <input name='has-solutions' type='checkbox' onChange={(event)=> {setSolutions(event.target.checked)}} />
             {/* add file */}
             <label for='user-description'>Description/notes (optional) (max 300 chars)</label>
-            <input name='user-description' type='text' maxLength={300} onChange={(newValue) => setDescription(newValue)} />
+            <input name='user-description' type='text' maxLength={300} onChange={(e) => setDescription(e.target.value)} />
             <input type='file' onChange={handleFileChange}/>
             <button type='submit'>Upload</button>
             <p className='error-board'>{error}</p>
