@@ -5,7 +5,6 @@ import { useState } from 'react'
 
 import { Landing } from './routes/Landing'
 import { Login } from './routes/Login'
-import { Protected } from './routes/Protected' 
 import { Results } from './routes/Results'
 import { Upload } from './routes/Upload'
 import { Search } from './routes/Search'
