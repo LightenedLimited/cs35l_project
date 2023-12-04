@@ -7,6 +7,7 @@ import  Select  from 'react-select'
 import { useNavigate } from 'react-router-dom'
 
 import '../styles/Search.css'
+import { DummyFetch } from '../functions/DummyFetch';
 
 const selectStyles = {
     control: (baseStyles, state) => ({
@@ -33,22 +34,24 @@ export function Search() {
     const [className, setClassName] = useState("")
     const [year, setYear] = useState("")
     const [solutions, setSolutions] = useState(false)
+    const [quarter, setQuarter] = useState(""); 
 
     const navigate = useNavigate()
 
+    DummyFetch()
     function sendToResults(e){
         e.preventDefault()
         // FORMAT FOR QUERIES:
         /* :[subject]:[class]:[professor]:[year]:[has solutions]:[test type]:[quarter] */
 
-        const queries = [subject, className, professor, year, solutions, testType]
+        const queries = [subject, className, professor, year, solutions, testType, quarter]
         for (let i = 0; i < queries.length; i++){
             queries[i] = queries[i]?.label ?? ''
         }
 
         let queryString = ':' + queries.join(':')
         console.log(queryString)
-        navigate('/' + queryString)
+        navigate('/results/' + encodeURI(queryString))
     }
     // todo: add missing params
     return (
@@ -139,7 +142,7 @@ async function getUniqueList(filter){
             mode: 'cors',
             credentials: 'include',
             body: JSON.stringify({
-                filer: {},
+                filter: {},
             })
         })
         let data = await res.json()
