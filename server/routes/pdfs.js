@@ -19,17 +19,18 @@ const upload = multer({
 
 router.use(validLogin()); 
 
-router.get('/search/:query', function(req, res, next) {
+router.get('/search/:query', upload.none(), function(req, res, next) {
     const encodedQuery = req.params.query;
-    const query = decodeURI(req.params.query)
+    const query = decodeURI(encodedQuery); 
     let search_filters
     try {
-        search_filters = JSON.parse(query)
+        search_filters = JSON.parse(query); 
     } catch(err){
         console.log(err)
         res.status(400).send('Bad request')
     }
     pdfs.Test.find(search_filters).then((results) => {
+        console.log(results); 
         res.json(results); 
     }).catch(err => {
         res.status(404)
@@ -62,13 +63,15 @@ router.post('/upload', upload.single("pdf"), function(req, res, next) {
 }); 
 
 
-router.post("/unique/:field", function(req, res, next) {
+router.post("/unique/:field", upload.none(), function(req, res, next) {
     console.log('trying to find unique', req.params.field)
     pdfs.Test.find(req.body.filter).distinct(req.params.field).then((results) => {
-        res.status(200).send(results); 
+        res.status(200).json(results); 
     }).catch((err) => {
         res.status(500).send(err); 
     })
 })
+
+router.use("/files", express.static(path.join(__dirname, '../uploads'))); 
 
 module.exports = router; 
