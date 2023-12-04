@@ -1,1 +1,86 @@
-/* style upload page */
+.upload-form {
+    background-color: white;
+    box-sizing: border-box;
+
+    border-style:outset;
+    border-color: #d3dee5;
+    border-radius: 2em;
+    border-width: 0.25em;
+
+    padding: 3%;
+    margin-left: 25%;
+    margin-right: 25%;
+}
+
+
+.upload-label{
+    display: block;
+    margin-top: 10px;
+    margin-bottom: 5px;
+    font-family: 'Montserrat', sans-serif;
+    font-weight: 1000;
+    font-size: large;
+}
+.file-input{
+    display:block;
+    margin-top: 0px;
+
+
+}
+.upload-input {
+    font-family: 'Montserrat', sans-serif;
+    font-weight: 600;
+    font-size: medium;
+
+    box-sizing: border-box;
+    width: 100%;
+    height: 3em;
+    margin-bottom: 15px;
+    padding: 12px 20px 12px 10px;
+
+    border-radius: 0.5em;
+    border-style: solid;
+    border-color: #d3dee5;
+    
+    background-position: right; 
+    background-repeat: no-repeat;
+    background-position-x: 95%;
+
+    transition: width 0.4s ease-in-out;
+}
+
+.upload-input:focus {
+    width: 60%;
+}
+
+.submit-button{
+    color: #fff;
+    text-align: center;
+    border-radius: 10px;
+    background-color: #0094ff;
+    align-self: center;
+    display:block;
+
+    justify-content: center;
+    padding: 14px 25px 14px 25px;
+    font: 600 20px Montserrat, sans-serif;
+    margin: 20px auto 0 auto;
+    transition-duration: 0.4s;
+}
+
+.submit-button:hover{
+    background-color: #fff;
+    color: #0094ff;
+    border: 2px solid #0094ff;
+}
+
+.solutions-checkbox{
+    flex-direction: row;
+    display: flex;
+    align-content: center;
+}
+
+.has-solutions{
+    margin-top: 10px;
+    margin-right: 10px;
+}

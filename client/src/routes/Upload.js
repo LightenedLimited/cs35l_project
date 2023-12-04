@@ -90,34 +90,38 @@ export function Upload() {
     return (
         <>
         <h1>Upload a Test</h1>
-        <form onSubmit={(e) => {handleSubmit(e)} }>
+        <form className = 'upload-form' onSubmit={(e) => {handleSubmit(e)} }>
             {/* subjects */}
-            <label for='subject'>Subject</label>
+            <label className='upload-label' for='subject'>Subject</label>
             <Dropdown name='subject' loadOptions={() => getAndFormat(() => getUniqueList('subject'))} onChange={(newValue) => {setSubject(newValue)}} />
             {/* class */}
-            <label for='class'>Class</label>
+            <label className='upload-label' for='class'>Class</label>
             <Dropdown loadOptions={() => getAndFormat(() => getUniqueList('class'))} onChange={(newValue) => setClassName(newValue)} />
             {/* professors */}
-            <label for='professor'>Professor</label>
+            <label className='upload-label' for='professor'>Professor</label>
             <Dropdown name='professor' loadOptions={() => getAndFormat(() => getUniqueList('professor'))} onChange={(newValue) => setProfessor(newValue)} />
             {/* years */}
-            <label for='year'>Year</label>
+            <label className='upload-label' for='year'>Year</label>
             <Dropdown name='year' loadOptions={() => getAndFormat(() => getUniqueList('year'))} onChange={(newValue) => setYear(newValue)} />
             {/* test types */}
-            <label for='test-type'>Test type</label>
+            <label className='upload-label' for='test-type'>Test type</label>
             <Select name='test-type' value={testType}  options={formatOptionsArr(testTypeList)} onChange={(newValue) => setTestType(newValue)}/>
             {/* quarters */}
-            <label for='quarter'>Quarter</label>
+            <label className='upload-label' for='quarter'>Quarter</label>
             <Select name='quarter' value={quarter} options={formatOptionsArr(quartersList)} onChange={(newValue) => {setQuarter(newValue)}}/>
             {/* solutions */}
-            <label for='has-solutions'>Test contains solutions</label>
-            <input name='has-solutions' type='checkbox' onChange={(event)=> {setSolutions(event.target.checked)}} />
+            <div className = 'solutions-checkbox'>
+                <input className='has-solutions' type='checkbox' onChange={(event)=> {setSolutions(event.target.checked)}} />
+                <label className='upload-label' for='has-solutions'>Test contains solutions</label>
+            </div>
             {/* add file */}
-            <label for='user-description'>Description/notes (optional) (max 300 chars)</label>
-            <input name='user-description' type='text' maxLength={300} onChange={(e) => setDescription(e.target.value)} />
+            <div className='file-input'>
+                <label className='upload-label' for='user-description'>Description/notes (optional) (max 300 chars)</label>
+                <input className= 'upload-input' type='text' maxLength={300} onChange={(newValue) => setDescription(newValue)} />
+            </div>
             <input type='file' onChange={handleFileChange}/>
-            <button type='submit'>Upload</button>
             <p className='error-board'>{error}</p>
+            <button className = 'submit-button' type='submit'>Upload</button>
         </form>
         </>
     )
