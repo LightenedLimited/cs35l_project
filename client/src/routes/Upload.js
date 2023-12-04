@@ -31,6 +31,22 @@ export function Upload() {
         event.preventDefault()
         // format options
 
+        // checking if strings contain non alphanumeric charactesr
+        if (!isAlphaNumeric(subject.label)) {
+            setError('Please do not use special characters in the subject')
+            return
+        }
+        if (!isAlphaNumeric(className.label)) {
+            setError('Please do not use special characters in the class name')
+            return
+        }
+        if (!isAlphaNumeric(professor.label)) {
+            setError('Please do not use special characters in the professor\'s name')
+            return
+        }
+        
+        
+
         const states = {
             file: file,
             subject: subject,
@@ -127,7 +143,18 @@ export function Upload() {
     )
 }
 
+function isLetterOrDigit(c) {
+    return (c >= 'a' && c <= 'z') || (c >= 'A' && c <= 'Z') || (c >= '0' && c <= '9') || c === ' '
+}
 
+function isAlphaNumeric(s) {
+    console.log(s)
+    for (var i = 0; i < s.length; i++) {
+        if (!isLetterOrDigit(s.charAt(i)))
+            return false
+    }
+    return true
+}
 
 async function getAndFormat(getter /*, formatter */){
     try{
