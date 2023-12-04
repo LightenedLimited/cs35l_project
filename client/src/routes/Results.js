@@ -12,17 +12,27 @@ export function Results() {
     const [loading, setLoading] = useState(false)
     let { query } = useParams()
     const decoded = decodeURI(query) // might need to put all this in useEffect
-    let body = parseUrl(decoded)
-    const encoded = encodeURI(JSON.stringify(body))
+    let filter_body = parseUrl(decoded)
+    // const encoded = encodeURI(JSON.stringify(body))
+
+    console.log(filter_body); 
 
     DummyFetch()
     
     useEffect(() => {
         setLoading(true)
-        fetch(`${globals.server_url}/pdfs/search/${encoded}`, {
+        fetch(`${globals.server_url}/pdfs/search`, {
             credentials: 'include',
-            method: 'GET',
+            headers: {
+                'Accept': 'application/json',
+                'Content-Type': 'application/json'
+            },
+            method: 'POST',
             mode: 'cors',
+            body: JSON.stringify({
+                filter: {
+                    filter_body
+                }})
         }).then(res => res.json())
         .then(data =>{
             console.log(data)

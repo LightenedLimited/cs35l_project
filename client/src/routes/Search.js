@@ -18,6 +18,7 @@ export function Search() {
     const [className, setClassName] = useState("")
     const [year, setYear] = useState("")
     const [solutions, setSolutions] = useState(false)
+    const [quarter, setQuarter] = useState(""); 
 
     const navigate = useNavigate()
 
@@ -27,7 +28,7 @@ export function Search() {
         // FORMAT FOR QUERIES:
         /* :[subject]:[class]:[professor]:[year]:[has solutions]:[test type]:[quarter] */
 
-        const queries = [subject, className, professor, year, solutions, testType]
+        const queries = [subject, className, professor, year, solutions, testType, quarter]
         for (let i = 0; i < queries.length; i++){
             queries[i] = queries[i]?.label ?? ''
         }
@@ -53,7 +54,7 @@ export function Search() {
                 <label for='year'>FROM YEAR</label>
                 <AsyncSelect name='year' loadOptions={() => getAndFormat(() => getUniqueList('year'))} onChange={(newValue) => setYear(newValue)} cacheOptions defaultOptions/>
                 <label for='quarter'>FROM QUARTER</label>
-                <Select name='quarter' options={formatOptionsArr(quartersList)} onChange={(newValue) => setTestType(newValue)} />
+                <Select name='quarter' options={formatOptionsArr(quartersList)} onChange={(newValue) => setQuarter(newValue)} />
                 <label for='has-solutions'>Test contains solutions</label>
                 <input name='has-solutions' type='checkbox' onChange={(event)=> {setSolutions(event.target.checked)}} />
                 <label for='search'>SEARCH</label>
@@ -100,7 +101,7 @@ async function getUniqueList(filter){
             mode: 'cors',
             credentials: 'include',
             body: JSON.stringify({
-                filer: {},
+                filter: {},
             })
         })
         let data = await res.json()
