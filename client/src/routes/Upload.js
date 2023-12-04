@@ -6,6 +6,7 @@ import { useState } from 'react'
 import Select from 'react-select';
 
 import { Dropdown } from '../components/Dropdown';
+import { DummyFetch } from '../functions/DummyFetch';
 
 
 export function Upload() {
@@ -20,7 +21,8 @@ export function Upload() {
     const [description, setDescription] = useState('')
     const [error, setError] = useState('')
 
-
+    DummyFetch()
+    
     function handleFileChange(event) {
         setFile(event.target.files[0])
     }
@@ -42,7 +44,7 @@ export function Upload() {
         }
 
         for (const prop in states){
-            if (prop == 'solutions'){
+            if (prop === 'solutions'){
                 continue
             }
             if (!states[prop]){
@@ -113,12 +115,10 @@ export function Upload() {
                 <label className='upload-label' for='has-solutions'>Test contains solutions</label>
             </div>
             {/* add file */}
-
             <div className='file-input'>
                 <label className='upload-label' for='user-description'>Description/notes (optional) (max 300 chars)</label>
                 <input className= 'upload-input' type='text' maxLength={300} onChange={(newValue) => setDescription(newValue)} />
             </div>
-
             <input type='file' onChange={handleFileChange}/>
             <p className='error-board'>{error}</p>
             <button className = 'submit-button' type='submit'>Upload</button>

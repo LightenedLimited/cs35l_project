@@ -29,15 +29,19 @@ import { globals } from '../globals'
 // else, attempt a sign up
 
 
-export function Login({authenticated, setAuthenticated}){
+export function Login({authenticated, setAuthenticated, path /* where the person was when they got sent to login */}){
     let [loginState, setLoginState] = useState(true) // true initially, false if email not found
 
     let [emailInput, setEmailInput] = useState('')
     let [pwInput, setPwInput] = useState('')
     let [confPwInput, setConfPwInput] = useState('')
 
-    async function checkEmail(e){
-        e.preventDefault()
+
+    if (!path){ // path not specided
+        path = '/search'
+    }
+
+    async function checkEmail(){
         console.log(emailInput)
 
         // TODO: check that exists is actually bool when this route is implemented
@@ -69,7 +73,7 @@ export function Login({authenticated, setAuthenticated}){
     }
 
     async function handleSubmit(e){ // TODO: Make result.message visible to user
-        console.log('trying to handle submit for event:' , e)
+        e.preventDefault()
         let priorState = loginState
         await checkEmail(e)
         if (priorState != loginState){ // if we changed states
