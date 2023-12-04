@@ -4,6 +4,7 @@ import { useState, useEffect } from 'react'
 
 import '../styles/Results.css'
 import { globals } from '../globals'
+import { DummyFetch } from '../functions/DummyFetch';
 
 export function Results() {
     const [data, setData] = useState(null) 
@@ -13,6 +14,8 @@ export function Results() {
     let body = parseUrl(decoded)
     const encoded = encodeURI(JSON.stringify(body))
 
+    DummyFetch()
+    
     useEffect(() => {
         setLoading(true)
         fetch(`${globals.server_url}/pdfs/search/${encoded}`, {

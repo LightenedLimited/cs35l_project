@@ -7,6 +7,7 @@ import  Select  from 'react-select'
 import { useNavigate } from 'react-router-dom'
 
 import '../styles/Search.css'
+import { DummyFetch } from '../functions/DummyFetch';
 
 
 export function Search() {
@@ -20,6 +21,7 @@ export function Search() {
 
     const navigate = useNavigate()
 
+    DummyFetch()
     function sendToResults(e){
         e.preventDefault()
         // FORMAT FOR QUERIES:

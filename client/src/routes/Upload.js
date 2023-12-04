@@ -6,6 +6,7 @@ import { useState } from 'react'
 import Select from 'react-select';
 
 import { Dropdown } from '../components/Dropdown';
+import { DummyFetch } from '../functions/DummyFetch';
 
 
 export function Upload() {
@@ -20,7 +21,8 @@ export function Upload() {
     const [description, setDescription] = useState('')
     const [error, setError] = useState('')
 
-
+    DummyFetch()
+    
     function handleFileChange(event) {
         setFile(event.target.files[0])
     }
