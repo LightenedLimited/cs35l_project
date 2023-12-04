@@ -4,16 +4,17 @@ import '../styles/Documents.css';
 
 export function Document({data}){
     console.log(data)
-    let {link,name} = data;
+    let {path,title} = data;
+    console.log(path)
     return(
         <div className="document-container">
             <img
                 alt="pdficons"
                 class="pdficons"
                 src={image}
-                onClick={() => window.open(link, "_blank")}
+                onClick={() => window.open(path, "_blank")}
             />
-            <div class="document-name">{name}</div>
+            <div class="document-name">{title}</div>
         </div>
     )
 }
