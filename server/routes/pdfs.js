@@ -34,7 +34,7 @@ router.post('/upload', upload.single("pdf"), function(req, res, next) {
     console.log('lets try to upload some shi')
     const newPDF = new pdfs.Test({
         user_upload_id: req.session.userid, //validated by validLogin
-        path: req.file.path, 
+        path: req.file.filename, 
         subject: req.body.subject, 
         professor: req.body.professor,
         title: req.body.title,
