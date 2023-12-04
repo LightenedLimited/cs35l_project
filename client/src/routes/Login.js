@@ -122,15 +122,15 @@ export function Login({authenticated, setAuthenticated, path /* where the person
 function SubmitBtn({valid, loginSt, setLoginSt} /* function */){
     return ( // doesnt change button value!
     <button 
-        class="log-button center-block" 
-        onClick= { (e) => setLoginSt( valid(e) ) } > {loginSt ? 'LOGIN' : 'SIGN UP'} </button>
+        class="login-button center-block" 
+        nClick= { (e) => setLoginSt( valid(e) ) } > {loginSt ? 'LOGIN' : 'SIGN UP'} </button>
     )
 }
 
 function ConfPassword({loginSt, setConfInp, confInp}){
     if (!loginSt){
         return (
-            <input type='password' placeholder='Confirm password' value={confInp} onChange={e => setConfInp(e.target.value)}></input>
+            <input class="login-input center-block" type='password' placeholder='Confirm password' value={confInp} onChange={e => setConfInp(e.target.value)}></input>
         )
     }
 }

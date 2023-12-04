@@ -2,7 +2,53 @@
 /* importing fonts */
 @import url('https://fonts.googleapis.com/css2?family=Inconsolata&family=Montserrat&display=swap');
 
-.logo {
+.img-logo {
+    display: inline-block;
+    /* aspect-ratio: 1.01; */
+    object-fit: contain;
+    width: 250px;
+    overflow: hidden;
+    align-self: center;
+    max-width: 100%;
+    margin:3%;
+}
+
+.center-content {
+    text-align: center;
+}
+
+.landing-button {
+    display: inline-block;
+    font-family: 'Montserrat', sans-serif;
+    cursor: pointer;
+    box-sizing: border-box;
+    border-radius: 3em;
+    border-color: #549892;
+    border-style:solid;
+    background-color: #66a39d;
+    font-size: medium;
+    font-weight: 900;
+    color: white;
+    letter-spacing: 0.1em;
+    padding: 1em;
+    margin: 1em;
+}
+
+.landing-button:hover {
+    background-color: #78b7b1;
+    border-color: #78b7b1;
+}
+
+.landing-button:active {
+    background-color: #78b7b1;
+    border-color: #78b7b1;
+    padding: 0.8em;
+    margin-bottom: 1.4em;
+}
+
+/* styling for the navigation bar */
+
+.nav-logo {
     display: inline-block;
     vertical-align: top;
     width: 50px;
@@ -10,48 +56,9 @@
     margin-left: 1.5%;
 }
 
-.img-logo {
-    display: inline-block;
-    /* aspect-ratio: 1.01; */
-    object-fit: contain;
-    width: 260px;
-    overflow: hidden;
-    align-self: center;
-    margin-top: 105px;
-    max-width: 100%;
-}
-
-.landing-container {
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    padding: 3%;
-    margin: 0 auto;
-}
-
-.login-button {
-    color: #fff;
-    text-align: center;
-    white-space: nowrap;
-    border-radius: 10px;
-    background-color: #0094ff;
-    align-self: center;
-    margin-top: 31px;
-    justify-content: center;
-    padding: 14px 37px 14px 25px;
-    font: 600 20px Montserrat, sans-serif;
-    transition-duration: 0.4s;
-    
-}
-.login-button:hover{
-    background-color: #fff;
-    color: #0094ff;
-    border: 2px solid #0094ff;
-}
-
 .nav-bar {
     background-color:#71a2a6;
-    
+    /* text-decoration: none; */
     margin: 0.8em;
     padding: 0.6%;
     border-radius: 0.8em;
@@ -59,7 +66,7 @@
 
 .nav-bar ul {
     display: inline-block;
-    /* text-decoration: none; WHY DOESNT THIS WORK */
+    /* text-decoration: none;  */
     color:white;
 }
 
@@ -82,20 +89,13 @@
     float: right;
 }
 
-h1,h2, h3 {
-    margin-top: 0.8em;
-    margin-bottom: 0.67em;
-    text-align: center;
+.landing-page-h1 {
+    margin-top: 0.3em;
+    margin-bottom: 0.5em;
 }
 
-h1 {
-    color: #274c77;
-    font-family: 'Inconsolata', monospace;
-    font-size: 3em;
-    letter-spacing: 0.06em;
-}
-
-h3 {
-    color: #777a80;
+.landing-page-heading {
+    margin-top: 0.3em;
+    margin-bottom: 0.2em;
 }
 

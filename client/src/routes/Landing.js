@@ -5,19 +5,21 @@ import { useNavigate } from 'react-router-dom'
 function Body(){
     const navigate = useNavigate()
     return (<>
-    <div class = 'landing-container'>
+    <div>
         <img 
         alt = 'logo for landing page'
-        class="img-logo" 
+        class='img-logo center-block'
         src={require("../styles/images/logo.png")}
         />
-        <h1>Bruin Test Bank</h1>
-        <h2>200 Practice Exams, 100 classes, 20 Subjects</h2>
-        <h3>Created by students. For students</h3>
-        <div 
-            class = 'login-button' 
-            onClick= {() => navigate('/login')}>
-            Login
+        <h1 class='landing-page-h1'>Bruin Test Bank</h1>
+        <h2 class='landing-page-heading'>200 Practice Exams, 100 classes, 20 Subjects</h2>
+        <h3 class='landing-page-heading'>Created by students. For students</h3>
+        <div class='center-content'> 
+            <div 
+                class = 'landing-button' 
+                onClick= {() => navigate('/login')}>
+                LOGIN
+            </div>
         </div>
     </div>
   

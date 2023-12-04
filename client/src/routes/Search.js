@@ -9,6 +9,22 @@ import { useNavigate } from 'react-router-dom'
 import '../styles/Search.css'
 import { DummyFetch } from '../functions/DummyFetch';
 
+const selectStyles = {
+    control: (baseStyles, state) => ({
+        ...baseStyles,
+        borderColor: state.isFocused ? '#274c77' : '#d3dee5',
+        borderRadius: '10px',
+        borderWidth: '3px',
+        marginLeft: '10%',
+        width: '100%',
+        border: state.menuIsOpen && '2px' && 'solid #2684FF',
+    }),
+    menu: (baseStyles) => ({
+        ...baseStyles,
+        marginLeft: '10%',
+        width: '100%', 
+    }),
+}
 
 export function Search() {
     //input boxes
@@ -42,23 +58,48 @@ export function Search() {
         <>
             <h1>Search</h1>
             <h3>What are you looking for today?</h3>
-            <form>
-                <label for='documentType'>I WANT TO FIND</label>
-                <Select name='documentType' options={formatOptionsArr(testTypeList)} onChange={(newValue) => setTestType(newValue)} />
-                <label for='subject'>FOR SUBJECT</label>
-                <AsyncSelect name='subject' loadOptions={() => getAndFormat(() => getUniqueList('subject'))} onChange={(newValue) => setSubject(newValue)} cacheOptions defaultOptions/>
-                <label for='class'>BY COURSE</label>
-                <AsyncSelect name='class' loadOptions={() => getAndFormat(() => getUniqueList('class'))} onChange={(newValue) => setClassName(newValue)} cacheOptions defaultOptions/>
-                <label for='professor'>BY PROFESSOR</label>
-                <AsyncSelect name='professor' loadOptions={() => getAndFormat(() => getUniqueList('professor'))} onChange={(newValue) => setProfessor(newValue)} cacheOptions defaultOptions/>
-                <label for='year'>FROM YEAR</label>
-                <AsyncSelect name='year' loadOptions={() => getAndFormat(() => getUniqueList('year'))} onChange={(newValue) => setYear(newValue)} cacheOptions defaultOptions/>
-                <label for='quarter'>FROM QUARTER</label>
-                <Select name='quarter' options={formatOptionsArr(quartersList)} onChange={(newValue) => setQuarter(newValue)} />
-                <label for='has-solutions'>Test contains solutions</label>
-                <input name='has-solutions' type='checkbox' onChange={(event)=> {setSolutions(event.target.checked)}} />
-                <label for='search'>SEARCH</label>
-                <button type="submit" label="search" onClick={(e) => sendToResults(e)}/>
+            <form class='search-form'>
+                <div class='search-div'>
+                    <label class='search-label' for='documentType'>I WANT TO FIND</label>
+                    <Select 
+                        styles={selectStyles} placeholder="Select Test Type" 
+                        name='documentType' options={formatOptionsArr(testTypeList)} onChange={(newValue) => setTestType(newValue)} />
+                </div>
+                <div class='search-div'>
+                    <label class='search-label' for='subject'>FOR SUBJECT</label>
+                    <AsyncSelect 
+                        styles={selectStyles} placeholder="Select Subject" 
+                        name='subject' loadOptions={() => getAndFormat(() => getUniqueList('subject'))} onChange={(newValue) => setSubject(newValue)} cacheOptions defaultOptions/>
+                </div>
+                <div class='search-div'>
+                    <label class='search-label' for='class'>BY COURSE</label>
+                    <AsyncSelect 
+                        styles={selectStyles} placeholder="Select Course Name" 
+                        name='class' loadOptions={() => getAndFormat(() => getUniqueList('class'))} onChange={(newValue) => setClassName(newValue)} cacheOptions defaultOptions/>
+                </div>
+                <div class='search-div'>
+                    <label class='search-label' for='professor'>BY PROFESSOR</label>
+                    <AsyncSelect 
+                        styles={selectStyles} placeholder="Select Professor Name" 
+                        name='professor' loadOptions={() => getAndFormat(() => getUniqueList('professor'))} onChange={(newValue) => setProfessor(newValue)} cacheOptions defaultOptions/>
+                </div>
+                <div class='search-div'>
+                    <label class='search-label' for='year'>FROM YEAR</label>
+                    <AsyncSelect 
+                        styles={selectStyles} placeholder="Select Year" 
+                        name='year' loadOptions={() => getAndFormat(() => getUniqueList('year'))} onChange={(newValue) => setYear(newValue)} cacheOptions defaultOptions/>
+                </div>
+                <div class='search-div'>
+                    <label class='search-label' for='quarter'>FROM QUARTER</label>
+                    <Select 
+                        styles={selectStyles} placeholder="Select Quarter" 
+                        name='quarter' options={formatOptionsArr(quartersList)} onChange={(newValue) => setTestType(newValue)} />
+                </div>
+                <div class='search-div'>
+                    <label class='search-label' for='has-solutions'>WITH SOLUTIONS</label>
+                    <input class='search-input' name='has-solutions' type='checkbox' onChange={(event)=> {setSolutions(event.target.checked)}} />
+                </div>
+                <button class='search-button center-block' type="submit" label="search" onClick={(e) => sendToResults(e)} >SEARCH</button>
             </form>
         </>
         )
