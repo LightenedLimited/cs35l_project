@@ -44,9 +44,32 @@ export function Upload() {
             setError('Please do not use special characters in the professor\'s name')
             return
         }
-        
-        
 
+        console.log(parseInt('asdfasdfa'));
+
+        // checking if year is not reasonable in two ways
+        // First check if it is not a "number"
+        // Then check if it is outside a reasonable range (this is somewhat subjective, 1919 ucla founded 2024 next year)
+        if (year.label !== '') {
+            if (parseInt(year.label)) {
+                console.log("parsing")
+                const temp = parseInt(year.label)
+                console.log("this shouldn't display if the year isn't nice numbers")
+                if (temp <= 1919 || temp > 2024) {
+                    setError('Please choose a valid year')
+                    return
+                }
+            }
+            else {
+                setError('Please choose a valid year')
+                return
+            }
+        }
+
+   
+
+        
+        //checking if all areas are filled out properly
         const states = {
             file: file,
             subject: subject,
