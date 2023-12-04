@@ -53,8 +53,8 @@
     transition: width 0.4s ease-in-out;
 }
 
-  /* icon color is #5FA8D3 */
-  .login-input[type="email"] {
+/* icon color is #5FA8D3 */
+.login-input[type="email"] {
     background-image: url('images/email.png');
 }
 .login-input[type="password"] {
@@ -66,7 +66,7 @@
     width: 60%;
 }
 
-.log-button {
+.login-button {
     font-family: 'Montserrat', sans-serif;
     cursor: pointer;
     box-sizing: border-box;
@@ -81,12 +81,12 @@
     padding: 1em;
 }
 
-.log-button:hover {
+.login-button:hover {
     background-color: #78b7b1;
     border-color: #78b7b1;
 }
 
-.log-button:active {
+.login-button:active {
     background-color: #78b7b1;
     border-color: #78b7b1;
     padding: 0.8em;

@@ -16,7 +16,7 @@ body {
 
 /* headers */
 
-h1, h3 {
+h1, h2, h3 {
     margin-top: 0.8em;
     margin-bottom: 0.67em;
     text-align: center;
