@@ -19,17 +19,9 @@ const upload = multer({
 
 router.use(validLogin()); 
 
-router.get('/search/:query', upload.none(), function(req, res, next) {
-    const encodedQuery = req.params.query;
-    const query = decodeURI(encodedQuery); 
-    let search_filters
-    try {
-        search_filters = JSON.parse(query); 
-    } catch(err){
-        console.log(err)
-        res.status(400).send('Bad request')
-    }
-    pdfs.Test.find(search_filters).then((results) => {
+router.post('/search/', upload.none(), function(req, res, next) {
+    console.log(req.body.filter.filter_body); 
+    pdfs.Test.find(req.body.filter.filter_body).then((results) => {
         console.log(results); 
         res.json(results); 
     }).catch(err => {
