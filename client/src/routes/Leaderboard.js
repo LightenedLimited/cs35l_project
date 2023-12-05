@@ -1,4 +1,4 @@
-//import '../styles/Leaderboard.css'
+import '../styles/Leaderboard.css'
 import { globals } from '../globals'
 import { useState, useEffect } from 'react'
 
@@ -21,7 +21,11 @@ export function Leaderboard() {
                 const top10 = sorted.slice(0, 10)
                 const entries = top10.map((entry, index) =>
                 (
-                    <p>{index + 1}: {entry["username"]}, Uploads: {entry["uploads"]}</p>
+                    <tr>
+                        <td>{index + 1}</td>
+                        <td>{entry["username"]}</td>
+                        <td>{entry["uploads"]}</td>
+                    </tr>
                 ))
                 setData(entries)
                 setLoading(false)
@@ -36,7 +40,14 @@ export function Leaderboard() {
         <>
             <h1>Results</h1>
             <p className='status-box'>{loading ? 'Loading...' : ''}</p>
-            <h2>{data}</h2>
+            <table>
+                <tr>
+                    <th>Rank</th>
+                    <th>Username</th>
+                    <th>Uploads</th>
+                </tr>
+                {data}
+            </table>
         </>
     )
 }

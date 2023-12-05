@@ -1,0 +1,9 @@
+/* style leaderboard page */
+
+table, th, td {
+    border: 1px solid;
+    border-collapse: collapse;
+    text-align: center;
+    margin-left:auto;
+    margin-right:auto;
+}
