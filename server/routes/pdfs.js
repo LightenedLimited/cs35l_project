@@ -2,6 +2,8 @@ var express = require('express');
 var router = express.Router();
 
 const pdfs = require("../schema/pdfs"); 
+const { User } = require('../schema/user'); 
+
 const { validLogin } = require("../middleware/cookieManager"); 
 var path = require('path'); 
 var multer = require('multer'); 
@@ -47,7 +49,11 @@ router.post('/upload', upload.single("pdf"), function(req, res, next) {
         users_notes: req.body.users_notes ? req.body.users_notes : "",
         download_count: 0,
     })
-    newPDF.save().then((success) => {
+    User.findById(req.session.userid).then(uploader => { // user who submitted this test
+    uploader.uploads++
+    uploader.save()
+    newPDF.save()
+    }).then((success) => {
         res.sendStatus(200); 
     }).catch(err => {
         console.log(err)
