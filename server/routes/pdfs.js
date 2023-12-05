@@ -6,6 +6,11 @@ const { validLogin } = require("../middleware/cookieManager");
 var path = require('path'); 
 var multer = require('multer'); 
 
+const { fromPath } = require('pdf2pic'); 
+const { createWorker, createScheduler } = require('tesseract.js'); 
+const scheduler = createScheduler();
+
+
 const upload = multer({
     storage: multer.diskStorage({
         destination: (req, file, cb) => {
@@ -46,12 +51,25 @@ router.post('/upload', upload.single("pdf"), function(req, res, next) {
         has_solution: req.body.has_solution,
         users_notes: req.body.users_notes ? req.body.users_notes : ""
     })
-    newPDF.save().then((success) => {
-        res.sendStatus(200); 
-    }).catch(err => {
-        console.log(err)
-        res.status(400).send(err) 
-    })
+    fromPath(path.join(__dirname, "../uploads", req.file.filename), 
+    {
+        density: 100,
+        saveFilename: req.file.filename,
+        savePath: path.join(__dirname, "../images"),
+        format: "png",
+        width: 600,
+        height: 600
+    }).bulk(-1).then(async (resolve) => {
+        const tesseractWorker = await createWorker('eng', 1, {
+            logger: m => console.log(m), // Add logger here
+        }); 
+        scheduler.addWorker(tesseractWorker); 
+        return Promise.all(resolve.map((image) => (scheduler.addJob('recognize', image['path']))));
+    }).then((ret) => {
+        //remap ret to text
+        return ret.map((example) => example.data.text); 
+    }).then(console.log); 
+    
 }); 
 
 
