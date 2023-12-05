@@ -51,7 +51,7 @@ export function Results() {
         <>
             <h1>Results</h1>
             <p className='status-box'>{loading ? 'Loading...' : ''}</p>
-            <p>{data}</p>
+            <div className = 'doc-result'>{data}</div>
         </>
     )
 }
