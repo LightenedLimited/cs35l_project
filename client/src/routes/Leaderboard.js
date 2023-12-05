@@ -1,41 +1,44 @@
 //import '../styles/Leaderboard.css'
+import { globals } from '../globals'
+import { useState, useEffect } from 'react'
 
 
 export function Leaderboard() {
-    const sortedUsers = sampleUsers.sort(function (a, b) { return b["uploads"]["$numberInt"] - a["uploads"]["$numberInt"] });
+    const [data, setData] = useState(null)
+    const [loading, setLoading] = useState(false)
 
-    const topTenUsers = sortedUsers.slice(0, 10);
+    useEffect(() => {
+        setLoading(true)
+        fetch(`${globals.server_url}/users/listUsers`, {
+            method: 'POST',
+            mode: 'cors',
+            credentials: 'include',
+        }).then(res => res.json())
+            .then(data => {
+                const arrayed = Array.from(data)
+                const sorted = arrayed.sort(function (a, b) { return b["uploads"] - a["uploads"] })
+                //only showing top 10 entries (arbitrary, can be raised or lowered)
+                const top10 = sorted.slice(0, 10)
+                const entries = top10.map((entry, index) =>
+                (
+                    <p>{index + 1}: {entry["username"]}, Uploads: {entry["uploads"]}</p>
+                ))
+                setData(entries)
+                setLoading(false)
+            })
+            .catch(err => {
+                console.log(err)
+            })
 
-    const items = topTenUsers.map((topTenUsers, index) =>
-        <h2>
-            <li>
-                {index + 1}: {topTenUsers["username"]} - {topTenUsers["uploads"]["$numberInt"]}
-            </li>
-        </h2>
-    )
+    }, [])
 
     return (
         <>
-            <h1>Leaderboard</h1>
-            <ul>{items}</ul>
+            <h1>Results</h1>
+            <p className='status-box'>{loading ? 'Loading...' : ''}</p>
+            <h2>{data}</h2>
         </>
     )
 }
 
-const sampleUsers = [
-    { "_id": { "$oid": "656eb393f4e755e59dbe5e62" }, "username": "test1", "password": "1234", "uploads": { "$numberInt": "0" }, "__v": { "$numberInt": "0" } },
-    { "_id": { "$oid": "656eb393f4e755e59dbe5e62" }, "username": "test2", "password": "1234", "uploads": { "$numberInt": "3" }, "__v": { "$numberInt": "0" } },
-    { "_id": { "$oid": "656eb393f4e755e59dbe5e62" }, "username": "test2", "password": "1234", "uploads": { "$numberInt": "3" }, "__v": { "$numberInt": "0" } },
-    { "_id": { "$oid": "656eb393f4e755e59dbe5e62" }, "username": "test2", "password": "1234", "uploads": { "$numberInt": "3" }, "__v": { "$numberInt": "0" } },
-    { "_id": { "$oid": "656eb393f4e755e59dbe5e62" }, "username": "test2", "password": "1234", "uploads": { "$numberInt": "3" }, "__v": { "$numberInt": "0" } },
-    { "_id": { "$oid": "656eb393f4e755e59dbe5e62" }, "username": "test2", "password": "1234", "uploads": { "$numberInt": "3" }, "__v": { "$numberInt": "0" } },
-    { "_id": { "$oid": "656eb393f4e755e59dbe5e62" }, "username": "test2", "password": "1234", "uploads": { "$numberInt": "3" }, "__v": { "$numberInt": "0" } },
-    { "_id": { "$oid": "656eb393f4e755e59dbe5e62" }, "username": "test2", "password": "1234", "uploads": { "$numberInt": "3" }, "__v": { "$numberInt": "0" } },
-    { "_id": { "$oid": "656eb393f4e755e59dbe5e62" }, "username": "test2", "password": "1234", "uploads": { "$numberInt": "3" }, "__v": { "$numberInt": "0" } },
-    { "_id": { "$oid": "656eb393f4e755e59dbe5e62" }, "username": "test2", "password": "1234", "uploads": { "$numberInt": "3" }, "__v": { "$numberInt": "0" } },
-    { "_id": { "$oid": "656eb393f4e755e59dbe5e62" }, "username": "test2", "password": "1234", "uploads": { "$numberInt": "3" }, "__v": { "$numberInt": "0" } },
-    { "_id": { "$oid": "656eb393f4e755e59dbe5e62" }, "username": "test2", "password": "1234", "uploads": { "$numberInt": "3" }, "__v": { "$numberInt": "0" } },
-    { "_id": { "$oid": "656eb393f4e755e59dbe5e62" }, "username": "test2", "password": "1234", "uploads": { "$numberInt": "3" }, "__v": { "$numberInt": "0" } },
-    { "_id": { "$oid": "656eb393f4e755e59dbe5e62" }, "username": "test3", "password": "1234", "uploads": { "$numberInt": "8" }, "__v": { "$numberInt": "0" } }
-];
 
