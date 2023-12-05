@@ -1,1 +1,10 @@
 /* style search results page */
+.doc-result{
+    display: flex;
+    flex-wrap: wrap;
+
+    flex-shrink: 1;
+    flex-direction: row;
+    justify-content: space-between;
+    
+}
