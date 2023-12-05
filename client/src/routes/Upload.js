@@ -8,9 +8,11 @@ import Select from 'react-select';
 
 import { Dropdown } from '../components/Dropdown';
 import { DummyFetch } from '../functions/DummyFetch';
+import { useNavigate } from 'react-router-dom';
 
 
 export function Upload() {
+    const navigate = useNavigate()
     const [file, setFile] = useState(null)
     const [subject, setSubject] = useState('')
     const [className, setClassName] = useState('')
@@ -84,7 +86,7 @@ export function Upload() {
         }
 
         for (const prop in states){
-            if (prop === 'solutions'){
+            if (prop === 'solutions' || prop === 'description'){
                 continue
             }
             if (!states[prop]){
@@ -93,8 +95,9 @@ export function Upload() {
                 return
             }
         }
-        setError('')
-
+        setError('Upload Successful. Sending you to search...')
+        setTimeout(() => navigate('/search'), 2000)
+            
         console.assert(typeof(solutions) == Boolean)
         const formData = new FormData()
         // gonna follow order of postman here
@@ -102,7 +105,7 @@ export function Upload() {
         console.log(quarter)
         console.log(testType)
         formData.append('subject', subject?.value ?? 'NONE SPECIFIED')
-        formData.append('title', 'idk what to do abt titles')
+        formData.append('title', file.name)
         formData.append('class', className?.value ?? 'NONE SPECIFIED')
         formData.append('quarter', quarter?.label ?? 'Spring')
         formData.append('test_type', testType?.label ?? 'NONE SPECIFIED')
