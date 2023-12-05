@@ -44,7 +44,8 @@ router.post('/upload', upload.single("pdf"), function(req, res, next) {
         year: req.body.year,
         test_type: req.body.test_type, 
         has_solution: req.body.has_solution,
-        users_notes: req.body.users_notes ? req.body.users_notes : ""
+        users_notes: req.body.users_notes ? req.body.users_notes : "",
+        download_count: 0,
     })
     newPDF.save().then((success) => {
         res.sendStatus(200); 
@@ -65,5 +66,18 @@ router.post("/unique/:field", upload.none(), function(req, res, next) {
 })
 
 router.use("/files", express.static(path.join(__dirname, '../uploads'))); 
+
+router.post('/increment', (req, res, next) => {
+    test_id = req.body.test_id
+    console.log('incrementing download count for document,', test_id)
+    pdfs.Test.findById(test_id).then(test => {
+        test.download_count++
+        test.save()
+    }).then(() => {
+        res.status(200)
+    }).catch(err => {
+        res.status(500)
+    })
+})
 
 module.exports = router; 

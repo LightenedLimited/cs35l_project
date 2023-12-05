@@ -1,4 +1,5 @@
 import '../styles/Upload.css'
+import '../styles/App.css'
 // we should limit the file size
 import { globals } from '../globals'
 
@@ -7,9 +8,11 @@ import Select from 'react-select';
 
 import { Dropdown } from '../components/Dropdown';
 import { DummyFetch } from '../functions/DummyFetch';
+import { useNavigate } from 'react-router-dom';
 
 
 export function Upload() {
+    const navigate = useNavigate()
     const [file, setFile] = useState(null)
     const [subject, setSubject] = useState('')
     const [className, setClassName] = useState('')
@@ -82,7 +85,7 @@ export function Upload() {
         }
 
         for (const prop in states){
-            if (prop === 'solutions'){
+            if (prop === 'solutions' || prop === 'description'){
                 continue
             }
             if (!states[prop]){
@@ -91,8 +94,9 @@ export function Upload() {
                 return
             }
         }
-        setError('')
-
+        setError('Upload Successful. Sending you to search...')
+        setTimeout(() => navigate('/search'), 2000)
+            
         console.assert(typeof(solutions) == Boolean)
         const formData = new FormData()
         // gonna follow order of postman here
@@ -100,7 +104,7 @@ export function Upload() {
         console.log(quarter)
         console.log(testType)
         formData.append('subject', subject?.value ?? 'NONE SPECIFIED')
-        formData.append('title', 'idk what to do abt titles')
+        formData.append('title', file.name)
         formData.append('class', className?.value ?? 'NONE SPECIFIED')
         formData.append('quarter', quarter?.label ?? 'Spring')
         formData.append('test_type', testType?.label ?? 'NONE SPECIFIED')
@@ -128,6 +132,7 @@ export function Upload() {
     return (
         <>
         <h1>Upload a Test</h1>
+        <h3>Share your document with others</h3>
         <form className = 'upload-form' onSubmit={(e) => {handleSubmit(e)} }>
             {/* subjects */}
             <label className='upload-label' for='subject'>Subject</label>
@@ -155,7 +160,7 @@ export function Upload() {
             {/* add file */}
             <div className='file-input'>
                 <label className='upload-label' for='user-description'>Description/notes (optional) (max 300 chars)</label>
-                <input className= 'upload-input' type='text' maxLength={300} onChange={(newValue) => setDescription(newValue)} />
+                <input className= 'upload-input center-block' type='text' maxLength={300} onChange={(newValue) => setDescription(newValue)} />
             </div>
             <input type='file' onChange={handleFileChange}/>
             <p className='error-board'>{error}</p>
