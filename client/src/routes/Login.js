@@ -1,4 +1,5 @@
 import '../styles/Login.css'
+import '../styles/App.css'
 
 // TODO: Store tokens in localstorage on successful login
 

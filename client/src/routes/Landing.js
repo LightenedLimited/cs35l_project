@@ -1,5 +1,6 @@
 // root page with short desciption of project and links to access test bank and stuff
 import '../styles/Landing.css'
+import '../styles/App.css'
 import { useNavigate } from 'react-router-dom'
 
 function Body(){

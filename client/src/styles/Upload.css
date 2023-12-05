@@ -10,6 +10,7 @@
     padding: 3%;
     margin-left: 25%;
     margin-right: 25%;
+    margin-bottom: 7%;
 }
 
 
@@ -24,8 +25,6 @@
 .file-input{
     display:block;
     margin-top: 0px;
-
-
 }
 .upload-input {
     font-family: 'Montserrat', sans-serif;
@@ -41,16 +40,12 @@
     border-radius: 0.5em;
     border-style: solid;
     border-color: #d3dee5;
-    
-    background-position: right; 
-    background-repeat: no-repeat;
-    background-position-x: 95%;
 
     transition: width 0.4s ease-in-out;
 }
 
 .upload-input:focus {
-    width: 60%;
+    width: 95%;
 }
 
 .submit-button{
