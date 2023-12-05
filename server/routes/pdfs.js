@@ -44,7 +44,8 @@ router.post('/upload', upload.single("pdf"), function(req, res, next) {
         year: req.body.year,
         test_type: req.body.test_type, 
         has_solution: req.body.has_solution,
-        users_notes: req.body.users_notes ? req.body.users_notes : ""
+        users_notes: req.body.users_notes ? req.body.users_notes : "",
+        download_count: 0,
     })
     newPDF.save().then((success) => {
         res.sendStatus(200); 
@@ -75,7 +76,7 @@ router.post('/increment', (req, res, next) => {
     }).then(() => {
         res.status(200)
     }).catch(err => {
-        res.status(500).send(err)
+        res.status(500)
     })
 })
 

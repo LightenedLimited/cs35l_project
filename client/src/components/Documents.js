@@ -15,15 +15,15 @@ export function Document({data}){
         try {
             fetch(`${globals.server_url}/pdfs/increment`, {
                 method: 'POST',
-                mode: 'CORS',
+                mode: 'cors',
                 credentials: 'include',
                 headers: {
                     'Accept': 'application/json',
                     'Content-Type': 'application/json'
                 },
-                body: {
+                body: JSON.stringify({
                     test_id: id,
-                }
+                }),
             })
         } catch (err){
             console.log(err)
