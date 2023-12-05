@@ -66,4 +66,17 @@ router.post("/unique/:field", upload.none(), function(req, res, next) {
 
 router.use("/files", express.static(path.join(__dirname, '../uploads'))); 
 
+router.post('/increment', (req, res, next) => {
+    test_id = req.body.test_id
+    console.log('incrementing download count for document,', test_id)
+    pdfs.Test.findById(test_id).then(test => {
+        test.download_count++
+        test.save()
+    }).then(() => {
+        res.status(200)
+    }).catch(err => {
+        res.status(500).send(err)
+    })
+})
+
 module.exports = router; 
