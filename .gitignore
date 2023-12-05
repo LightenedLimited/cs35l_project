@@ -130,3 +130,5 @@ dist
 .pnp.*
 
 server/uploads
+!server/uploads/.gitkeep
+eng.traineddata
