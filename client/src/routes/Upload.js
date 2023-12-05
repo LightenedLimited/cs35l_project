@@ -1,4 +1,5 @@
 import '../styles/Upload.css'
+import '../styles/App.css'
 // we should limit the file size
 import { globals } from '../globals'
 
@@ -129,6 +130,7 @@ export function Upload() {
     return (
         <>
         <h1>Upload a Test</h1>
+        <h3>Share your document with others</h3>
         <form className = 'upload-form' onSubmit={(e) => {handleSubmit(e)} }>
             {/* subjects */}
             <label className='upload-label' for='subject'>Subject</label>
@@ -156,7 +158,7 @@ export function Upload() {
             {/* add file */}
             <div className='file-input'>
                 <label className='upload-label' for='user-description'>Description/notes (optional) (max 300 chars)</label>
-                <input className= 'upload-input' type='text' maxLength={300} onChange={(newValue) => setDescription(newValue)} />
+                <input className= 'upload-input center-block' type='text' maxLength={300} onChange={(newValue) => setDescription(newValue)} />
             </div>
             <input type='file' onChange={handleFileChange}/>
             <p className='error-board'>{error}</p>

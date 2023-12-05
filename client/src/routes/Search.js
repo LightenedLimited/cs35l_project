@@ -7,6 +7,7 @@ import  Select  from 'react-select'
 import { useNavigate } from 'react-router-dom'
 
 import '../styles/Search.css'
+import '../styles/App.css'
 import { DummyFetch } from '../functions/DummyFetch';
 
 const selectStyles = {
@@ -60,7 +61,7 @@ export function Search() {
             <h3>What are you looking for today?</h3>
             <form class='search-form'>
                 <div class='search-div'>
-                    <label class='search-label' for='documentType'>I WANT TO FIND</label>
+                    <label class='search-label' for='documentType'>I WANT TO FIND A</label>
                     <Select 
                         styles={selectStyles} placeholder="Select Test Type" 
                         name='documentType' options={formatOptionsArr(testTypeList)} onChange={(newValue) => setTestType(newValue)} />
