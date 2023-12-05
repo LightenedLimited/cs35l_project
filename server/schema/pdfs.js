@@ -48,8 +48,13 @@ const testSchema = new Schema({
         type: Boolean,
         required: true
     }, 
-    users_notes: String
+    users_notes: String,
+    // from leroy
+    download_count: {
+        type: Number,
+        required: true,
    }
+}
 )
 
 const Test = mongoose.model("Test", testSchema); 

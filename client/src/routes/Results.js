@@ -83,6 +83,6 @@ function parseUrl(urlString){
 
 // sort tests by number of downloads in descending order
 function sortByDownloads(data){
-    return data.toSorted((a, b) => b.download_count - a.download_count)
+    return data.toSorted((a, b) => (b?.download_count ?? 0) - (a?.download_count ?? 0)) // weird question marks are for backwards compatibility. tests that dont have a download count are treated as having 0
     // order of a and b reversed because toSorted usually sorts ascending, but we want descending
 }
