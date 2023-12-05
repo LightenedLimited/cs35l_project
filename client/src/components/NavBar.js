@@ -14,6 +14,7 @@ export function NavBar(){
                     <li><Link to='/upload'>Upload</Link></li>
                     <li><Link to='mailto:leroylightning@g.ucla.edu'>Contact Us</Link></li>
                     <li><Link to='/login'>Log In</Link></li>
+                    <li><Link to='/leaderboard'>Leaderboard</Link></li>
                 </ul>
             </div>
         </nav>

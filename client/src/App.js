@@ -8,6 +8,7 @@ import { Login } from './routes/Login'
 import { Results } from './routes/Results'
 import { Upload } from './routes/Upload'
 import { Search } from './routes/Search'
+import { Leaderboard } from './routes/Leaderboard'
 
 import { NavBar} from './components/NavBar'
 
@@ -22,6 +23,7 @@ function App() {
       <Route path='upload' element={<Upload />} />
       <Route path='search' element={<Search />}/>
       <Route path='/results/:query' element={<Results />}/>
+      <Route path='leaderboard' element={<Leaderboard />} />
     </Routes>
     </>
 );

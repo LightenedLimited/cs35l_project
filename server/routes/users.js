@@ -37,10 +37,10 @@ router.post("/logout", function(req, res, next) {
 
 router.post("/create", function(req, res, next) {
 	var candidateUsername = req.body.username; 
-  	var candidatePassword = req.body.password; 
+    var candidatePassword = req.body.password;
 	User.exists({username: candidateUsername}).then((exists) => {
 		if(exists) return res.status(400).send("Username exists"); 
-		const newUser = new User({username: candidateUsername, password: candidatePassword}); 
+		const newUser = new User({username: candidateUsername, password: candidatePassword, uploads: 0}); 
 		newUser.save().then((success) => {
 			res.sendStatus(201); 
 		}).catch(err => {
