@@ -82,7 +82,6 @@ export function Upload() {
             testType: testType,
             quarter: quarter,
             solutions: solutions,
-            description: description,
         }
 
         for (const prop in states){
