@@ -15,6 +15,10 @@ const { fromPath } = require('pdf2pic');
 const { createWorker, createScheduler } = require('tesseract.js'); 
 const scheduler = createScheduler();
 
+const fs = require('fs'); 
+const util = require('util')
+const deleteFilePromise = util.promisify(fs.unlink); 
+
 const algoliasearch = require("algoliasearch");
 const client = algoliasearch(process.env.ANGOLIA_APPLICATION_ID, process.env.ANGOLIA_API_KEY); 
 const index = client.initIndex(process.env.ANGOLIA_INDEX_NAME);
@@ -70,12 +74,15 @@ router.post('/upload', upload.single("pdf"), function(req, res, next) {
         width: 1800,
         height: 1200
     }).bulk(-1).then(async (resolve) => {
-        const tesseractWorker = await createWorker('eng', 1, {
-            logger: m => console.log(m), // Add logger here
-        }); 
+        const tesseractWorker = await createWorker('eng', 1); 
         scheduler.addWorker(tesseractWorker); 
-        return Promise.all(resolve.map((image) => (scheduler.addJob('recognize', image['path']))));
+        return Promise.all(resolve.map((image) => {
+            return scheduler.addJob('recognize', image['path']).then((x) => {
+                return deleteFilePromise(image['path']).then(() => x); 
+            })
+        }));
     }).then((ret) => {
+        console.log(ret); 
         //remap ret to text
         return ret.map((example) => example.data.text); 
     }).then((texts) => {
@@ -87,6 +94,7 @@ router.post('/upload', upload.single("pdf"), function(req, res, next) {
     }).then((success) => {
         return User.findById(req.session.userid)
     }).then((uploader) => {
+        uploader.uploads++; 
         return uploader.save()
     }).then((success) => {
         res.sendStatus(200); 
