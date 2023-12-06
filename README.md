@@ -1,5 +1,9 @@
 # cs35l_project
 
+# General Prerequisites
+
+We use Node.js v.16.15.1 and npm v.8.11.0, which you can install from the [Node.js releases](https://nodejs.org/en/about/previous-releases). There are no version specific functionality used, so realistically any Node.js newer version should not be breaking, however, this was not throughouly tested. 
+
 ## Database and Services Setup
 
 In the prerequisite, we need to setup two different services, MongoDB and Algolia. MongoDB is a noSQL database, which we use to store the meta information regarding the tests and the users, and the PDF document itself is stored locally. The Aloglia service is a used as a search engine, which we use for the content discovery feature. We will walk through the setup, but please contact us if you want the API keys and environment variables.
@@ -33,8 +37,23 @@ INSERT HHERE
 (as we will use it as the ANGOLIA_API_KEY in the .env file). 
 ![api_keys](./docs/images/algolia_api_keys.png)
 
+## Server Setup
+
 ### GraphicsMagick Setup
 
 One of the packages we use for OCR (called tesseract.js) requires us to install a native package called [GraphicsMagick](http://www.graphicsmagick.org/INSTALL-unix.html). The exact way to install this package is dependent on the platform that you run this application on. For MacOS/UNIX systems, it is possible to install from building (as shown in the [package instructions](http://www.graphicsmagick.org/INSTALL-unix.html)), or as we recommend, installing from a [package manager called 'homebrew'](https://formulae.brew.sh/formula/graphicsmagick). For Windows systems, we recommend installing from a [Installer Package from the source directly](http://www.graphicsmagick.org/INSTALL-windows.html). 
+
+### Setting up the .env file
+
+If you look within the 'server' folder, will see a .env.example file. Make a copy of this file, and call it '.env'. Replace the associated values pf MONGODB_ACCESS, ANGOLIA_API_KEY, ANGOLIA_APPLICATION_ID with the values and API keys above. You can replace the 'SESSION_SECRET' with anything you want, it is just the key used to encrypt coookies on the backend. The 'ANGOLIA_INDEX_NAME' can be replaced with anything, it is the 'index' or database name that will be created or used on the Algolia service. Again, please contact us if you want to skip this process of setting up, and we can send you the .env file.  
+
+### Install packages on the server side
+
+Run the following code:
+```
+$ cd ./server
+$ npm install
+```
+
 
 Setup the .env inside server
