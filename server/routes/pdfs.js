@@ -64,8 +64,8 @@ router.post('/upload', upload.single("pdf"), function(req, res, next) {
         saveFilename: req.file.filename,
         savePath: path.join(__dirname, "../images"),
         format: "png",
-        width: 600,
-        height: 600
+        width: 1800,
+        height: 1200
     }).bulk(-1).then(async (resolve) => {
         const tesseractWorker = await createWorker('eng', 1, {
             logger: m => console.log(m), // Add logger here
@@ -85,10 +85,21 @@ router.post('/upload', upload.single("pdf"), function(req, res, next) {
         res.sendStatus(200); 
     }).catch((err) => {
         res.status(500).send(err); 
-    })
-    ; 
+    }); 
 }); 
 
+router.post("/search/text", upload.none(), function (req, res, next) {
+    index.search(req.body.text).then(({hits}) => {
+        return hits.map((object) => object.objectID); 
+    }).then((objectIDs) => {
+        console.log(objectIDs); 
+        return pdfs.Test.find().where("_id").in(objectIDs).exec(); 
+    }).then((targetPDFs) => {
+        res.status(200).json(targetPDFs); 
+    }).catch((err) => {
+        res.status(500).send(err); 
+    })
+})
 
 router.post("/unique/:field", upload.none(), function(req, res, next) {
     console.log('trying to find unique', req.params.field)
