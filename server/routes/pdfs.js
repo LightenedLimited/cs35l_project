@@ -82,7 +82,6 @@ router.post('/upload', upload.single("pdf"), function(req, res, next) {
             })
         }));
     }).then((ret) => {
-        console.log(ret); 
         //remap ret to text
         return ret.map((example) => example.data.text); 
     }).then((texts) => {

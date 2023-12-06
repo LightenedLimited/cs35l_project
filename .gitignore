@@ -131,4 +131,6 @@ dist
 
 server/uploads
 !server/uploads/.gitkeep
+server/images
+!server/images/.gitkeep
 eng.traineddata
