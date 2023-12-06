@@ -1,12 +1,12 @@
 # cs35l_project
 
-## Server Setup
+## Database and Services Setup
 
 In the prerequisite, we need to setup two different services, MongoDB and Algolia. MongoDB is a noSQL database, which we use to store the meta information regarding the tests and the users, and the PDF document itself is stored locally. The Aloglia service is a used as a search engine, which we use for the content discovery feature. We will walk through the setup, but please contact us if you want the API keys and environment variables.
 
 ### MongoDB Atlas Setup
 
-Any [MongoDB instance works](https://www.mongodb.com/), but we prefer to utilize an [Atlas environment](https://www.mongodb.com/cloud/atlas/register) due to easy setup. Here's how we setup.
+Any [MongoDB instance works](https://www.mongodb.com/), but we prefer to utilize an [Atlas environment](https://www.mongodb.com/cloud/atlas/register) due to easy setup. Here's how we setup. Again, please contact us and we can provide you directly with the .env key and to skip this process. 
 
 1. We register an account with MongoDB [Atlas](https://www.mongodb.com/cloud/atlas/register). 
 2. It will ask you a series of questions, it really isn't important what you answer here. 
@@ -32,6 +32,9 @@ INSERT HHERE
 3. Copy and save the Application ID (as we will use it as the ANGOLIA_APPLICATION_ID in the .env file for the folder) and the Admin API Key
 (as we will use it as the ANGOLIA_API_KEY in the .env file). 
 ![api_keys](./docs/images/algolia_api_keys.png)
-install GraphicsMagick 
+
+### GraphicsMagick Setup
+
+One of the packages we use for OCR (called tesseract.js) requires us to install a native package called [GraphicsMagick](http://www.graphicsmagick.org/INSTALL-unix.html). The exact way to install this package is dependent on the platform that you run this application on. For MacOS/UNIX systems, it is possible to install from building (as shown in the [package instructions](http://www.graphicsmagick.org/INSTALL-unix.html)), or as we recommend, installing from a [package manager called 'homebrew'](https://formulae.brew.sh/formula/graphicsmagick). For Windows systems, we recommend installing from a [Installer Package from the source directly](http://www.graphicsmagick.org/INSTALL-windows.html). 
 
 Setup the .env inside server
