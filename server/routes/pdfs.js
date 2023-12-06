@@ -8,6 +8,22 @@ const { validLogin } = require("../middleware/cookieManager");
 var path = require('path'); 
 var multer = require('multer'); 
 
+var dotenv = require('dotenv');
+dotenv.config(); 
+
+const { fromPath } = require('pdf2pic'); 
+const { createWorker, createScheduler } = require('tesseract.js'); 
+const scheduler = createScheduler();
+
+const fs = require('fs'); 
+const util = require('util')
+const deleteFilePromise = util.promisify(fs.unlink); 
+
+const algoliasearch = require("algoliasearch");
+const client = algoliasearch(process.env.ANGOLIA_APPLICATION_ID, process.env.ANGOLIA_API_KEY); 
+const index = client.initIndex(process.env.ANGOLIA_INDEX_NAME);
+
+
 const upload = multer({
     storage: multer.diskStorage({
         destination: (req, file, cb) => {
@@ -49,18 +65,55 @@ router.post('/upload', upload.single("pdf"), function(req, res, next) {
         users_notes: req.body.users_notes ? req.body.users_notes : "",
         download_count: 0,
     })
-    User.findById(req.session.userid).then(uploader => { // user who submitted this test
-    uploader.uploads++
-    uploader.save()
-    newPDF.save()
+    fromPath(path.join(__dirname, "../uploads", req.file.filename), 
+    {
+        density: 100,
+        saveFilename: req.file.filename,
+        savePath: path.join(__dirname, "../images"),
+        format: "png",
+        width: 1800,
+        height: 1200
+    }).bulk(-1).then(async (resolve) => {
+        const tesseractWorker = await createWorker('eng', 1); 
+        scheduler.addWorker(tesseractWorker); 
+        return Promise.all(resolve.map((image) => {
+            return scheduler.addJob('recognize', image['path']).then((x) => {
+                return deleteFilePromise(image['path']).then(() => x); 
+            })
+        }));
+    }).then((ret) => {
+        //remap ret to text
+        return ret.map((example) => example.data.text); 
+    }).then((texts) => {
+        const text = texts.join(""); 
+        const objects = [{objectID: newPDF._id, text}]
+        return index.saveObjects(objects); 
+    }).then(({ objectIDs }) => {
+        return newPDF.save(); 
+    }).then((success) => {
+        return User.findById(req.session.userid)
+    }).then((uploader) => {
+        uploader.uploads++; 
+        return uploader.save()
     }).then((success) => {
         res.sendStatus(200); 
-    }).catch(err => {
-        console.log(err)
-        res.status(400).send(err) 
-    })
+    }).catch((err) => {
+        res.status(500).send(err); 
+    }); 
 }); 
 
+router.post("/search/text", upload.none(), function (req, res, next) {
+    index.search(req.body.text).then(({hits}) => {
+        return hits.map((object) => object.objectID); 
+    }).then((objectIDs) => {
+        console.log(objectIDs); 
+        return pdfs.Test.find().where("_id").in(objectIDs).exec(); 
+    }).then((targetPDFs) => {
+        res.status(200).json(targetPDFs); 
+    }).catch((err) => {
+        res.status(500).send(err); 
+    })
+})
 
 router.post("/unique/:field", upload.none(), function(req, res, next) {
     console.log('trying to find unique', req.params.field)
