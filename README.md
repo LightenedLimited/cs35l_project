@@ -37,6 +37,15 @@ INSERT HHERE
 (as we will use it as the ANGOLIA_API_KEY in the .env file). 
 ![api_keys](./docs/images/algolia_api_keys.png)
 
+## Client Setup
+
+Run the following bash commands:
+```bash
+$ cd ./client
+$ npm install
+$ npm start
+```
+
 ## Server Setup
 
 ### GraphicsMagick Setup
@@ -50,10 +59,9 @@ If you look within the 'server' folder, will see a .env.example file. Make a cop
 ### Install packages on the server side
 
 Run the following code:
-```
+```bash
 $ cd ./server
 $ npm install
+$ npm start
 ```
 
-
-Setup the .env inside server
