@@ -22,8 +22,16 @@ Any [MongoDB instance works](https://www.mongodb.com/), but we prefer to utilize
 ![connection_string](./docs/images/mongo_connection_string.png)
 7. Save this connection string for the MONGODB_ACCESS environment variable in the .env file in the server folder that we will discuss later. 
 
+### Algolia Setup
 
+INSERT HHERE
 
+1. We register an account with [Algolia](https://dashboard.algolia.com/signup/personal_information). It will prompt you with a series of questions, it's not really important what you answer. 
+2. Click the 'API Keys' tab in the Welcome section of the dashboard. 
+![welcome](./docs/images/algolia_welcome.png)
+3. Copy and save the Application ID (as we will use it as the ANGOLIA_APPLICATION_ID in the .env file for the folder) and the Admin API Key
+(as we will use it as the ANGOLIA_API_KEY in the .env file). 
+![api_keys](./docs/images/algolia_api_keys.png)
 install GraphicsMagick 
 
 Setup the .env inside server
