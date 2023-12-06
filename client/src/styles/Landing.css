@@ -2,6 +2,16 @@
 /* importing fonts */
 @import url('https://fonts.googleapis.com/css2?family=Inconsolata&family=Montserrat&display=swap');
 
+.landing-page-h1 {
+    margin-top: 0.3em;
+    margin-bottom: 0.5em;
+}
+
+.landing-page-heading {
+    margin-top: 0.3em;
+    margin-bottom: 0.2em;
+}
+
 .img-logo {
     display: inline-block;
     /* aspect-ratio: 1.01; */
@@ -46,56 +56,60 @@
     margin-bottom: 1.4em;
 }
 
+.center-block {
+    display: block;
+    margin-right: auto;
+    margin-left: auto;
+}
+
 /* styling for the navigation bar */
 
 .nav-logo {
+    display: flex;
+    width: 250px;
+}
+
+.nav-img {
     display: inline-block;
-    vertical-align: top;
     width: 50px;
     height: 50px;
     margin-left: 1.5%;
+    margin-right: 0px; 
 }
 
 .nav-bar {
     background-color:#71a2a6;
-    /* text-decoration: none; */
     margin: 0.8em;
     padding: 0.6%;
     border-radius: 0.8em;
 }
 
 .nav-bar ul {
-    display: inline-block;
-    /* text-decoration: none;  */
-    color:white;
+    display: flex;
+    justify-content: space-between;
 }
-
 
 .nav-bar li {
     display: inline-block;
     text-align: center;
-    padding: 1em;
-    margin-left: 1em;
-    margin-right: 1em;
-    color: white;
+    padding-top: 1em;
+    padding-bottom: 1em;
+    padding-left: 0.5em;
+    padding-right: 0.5em;
 }
 
 .nav-bar li:hover {
-    background-color: white;
     border-radius: 3em;
 }
 
-.nav-bar-right {
-    float: right;
+.nav-link {
+    text-decoration: none;
+    color: white;
+    font-weight: 600;
+    letter-spacing: 0.1em;
 }
-
-.landing-page-h1 {
-    margin-top: 0.3em;
-    margin-bottom: 0.5em;
-}
-
-.landing-page-heading {
-    margin-top: 0.3em;
-    margin-bottom: 0.2em;
+  
+.nav-link:hover {
+    color: #e7ecef;
 }
 

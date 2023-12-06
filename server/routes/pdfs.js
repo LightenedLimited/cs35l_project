@@ -2,6 +2,8 @@ var express = require('express');
 var router = express.Router();
 
 const pdfs = require("../schema/pdfs"); 
+const { User } = require('../schema/user'); 
+
 const { validLogin } = require("../middleware/cookieManager"); 
 var path = require('path'); 
 var multer = require('multer'); 
@@ -56,7 +58,8 @@ router.post('/upload', upload.single("pdf"), function(req, res, next) {
         year: req.body.year,
         test_type: req.body.test_type, 
         has_solution: req.body.has_solution,
-        users_notes: req.body.users_notes ? req.body.users_notes : ""
+        users_notes: req.body.users_notes ? req.body.users_notes : "",
+        download_count: 0,
     })
     fromPath(path.join(__dirname, "../uploads", req.file.filename), 
     {
@@ -81,6 +84,10 @@ router.post('/upload', upload.single("pdf"), function(req, res, next) {
         return index.saveObjects(objects); 
     }).then(({ objectIDs }) => {
         return newPDF.save(); 
+    }).then((success) => {
+        return User.findById(req.session.userid)
+    }).then((uploader) => {
+        return uploader.save()
     }).then((success) => {
         res.sendStatus(200); 
     }).catch((err) => {
@@ -111,5 +118,18 @@ router.post("/unique/:field", upload.none(), function(req, res, next) {
 })
 
 router.use("/files", express.static(path.join(__dirname, '../uploads'))); 
+
+router.post('/increment', (req, res, next) => {
+    test_id = req.body.test_id
+    console.log('incrementing download count for document,', test_id)
+    pdfs.Test.findById(test_id).then(test => {
+        test.download_count++
+        test.save()
+    }).then(() => {
+        res.status(200)
+    }).catch(err => {
+        res.status(500)
+    })
+})
 
 module.exports = router; 
