@@ -6,9 +6,16 @@ const { validLogin } = require("../middleware/cookieManager");
 var path = require('path'); 
 var multer = require('multer'); 
 
+var dotenv = require('dotenv');
+dotenv.config(); 
+
 const { fromPath } = require('pdf2pic'); 
 const { createWorker, createScheduler } = require('tesseract.js'); 
 const scheduler = createScheduler();
+
+const algoliasearch = require("algoliasearch");
+const client = algoliasearch(process.env.ANGOLIA_APPLICATION_ID, process.env.ANGOLIA_API_KEY); 
+const index = client.initIndex(process.env.ANGOLIA_INDEX_NAME);
 
 
 const upload = multer({
@@ -68,8 +75,18 @@ router.post('/upload', upload.single("pdf"), function(req, res, next) {
     }).then((ret) => {
         //remap ret to text
         return ret.map((example) => example.data.text); 
-    }).then(console.log); 
-    
+    }).then((texts) => {
+        const text = texts.join(""); 
+        const objects = [{objectID: newPDF._id, text}]
+        return index.saveObjects(objects); 
+    }).then(({ objectIDs }) => {
+        return newPDF.save(); 
+    }).then((success) => {
+        res.sendStatus(200); 
+    }).catch((err) => {
+        res.status(500).send(err); 
+    })
+    ; 
 }); 
 
 
