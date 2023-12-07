@@ -37,7 +37,8 @@ export function Document({data}){
                 src={image}
                 onClick={(e) => handleDownload(e)}
             />
-            <div class="document-name">{title}</div>
+            <div class="document-name"
+                 onClick={(e) => handleDownload(e)}>{title}</div>
         </div>
     )
 }
