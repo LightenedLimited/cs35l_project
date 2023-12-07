@@ -22,9 +22,9 @@ export function Leaderboard() {
                 const entries = top10.map((entry, index) =>
                 (
                     <tr>
-                        <td>{index + 1}</td>
-                        <td>{entry["username"]}</td>
-                        <td>{entry["uploads"]}</td>
+                        <td className={index < 3 ? 'top3Cell' && 'rankImage' : 'regularCell'}>{index + 1}</td>
+                        <td className={index < 3 ? 'top3Cell' : 'regularCell'}>{entry["username"]}</td>
+                        <td className={index < 3 ? 'top3Cell' : 'regularCell'}>{entry["uploads"]}</td>
                     </tr>
                 ))
                 setData(entries)
@@ -39,12 +39,13 @@ export function Leaderboard() {
     return (
         <>
             <h1>Results</h1>
+            <h3>See our top contributors!</h3>
             <p className='status-box'>{loading ? 'Loading...' : ''}</p>
-            <table>
+            <table class='boardTable'>
                 <tr>
-                    <th>Rank</th>
-                    <th>Username</th>
-                    <th>Uploads</th>
+                    <th class='boardth'>Rank</th>
+                    <th class='boardth'>Username</th>
+                    <th class='boardth'>Uploads</th>
                 </tr>
                 {data}
             </table>

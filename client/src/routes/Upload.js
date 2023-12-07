@@ -164,7 +164,7 @@ export function Upload() {
             </div>
             <input type='file' onChange={handleFileChange}/>
             <p className='error-board'>{error}</p>
-            <button className = 'submit-button' type='submit'>Upload</button>
+            <button className = 'submit-button center-block' type='submit'>UPLOAD</button>
         </form>
         </>
     )
