@@ -15,7 +15,6 @@ export function Results() {
     let parsed = parseUrl(decoded) // FIX!
     // const encoded = encodeURI(JSON.stringify(body))
 
-    console.log(parsed); 
 
     DummyFetch()
     
@@ -25,11 +24,14 @@ export function Results() {
         let body = {}
         if (parsed.textSearch){
             url += '/pdfs/search/text'
-            body['text'] = parsed.content.text // just text here
+            body.text = parsed.content.text // just text here
+            console.log(body)
         }
         else {
             url += '/pdfs/search'
-            body['filter'] = parsed // parsed should be an object
+            body.filter = {}
+            body.filter.filter_body = parsed.content // parsed should be an object
+            console.log(body)
         }
 
         // todo: MAKE WORK!
@@ -45,6 +47,7 @@ export function Results() {
         }).then(res => res.json())
         .then(data =>{
             // sort by relevance feature
+            console.log(data)
             const sorted = sortByDownloads(data)
             const documents = sorted.map(test => (<Document data={test} />))
             console.log(documents)
@@ -97,7 +100,7 @@ function parseUrl(urlString){
         }
         return {content: body, textSearch: false}
     }
-    const body = {text: urlString.slice(1)}
+    const body = urlString.slice(1)
     return {content: body, textSearch: true }
 }
 

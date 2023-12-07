@@ -4,11 +4,9 @@ import '../styles/Documents.css';
 import { globals } from '../globals'
 
 export function Document({data}){
-    console.log(data)
     const title = data["title"]; 
     const file_path = data["path"]; 
     const id = data['_id']
-    console.log(file_path)
 
     async function handleDownload(e){
         e.preventDefault()
