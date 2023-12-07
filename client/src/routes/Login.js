@@ -14,6 +14,7 @@ import '../styles/App.css'
 // while the first might seem cleaner, it also might be slower, but I'm down to test out either
 // FOR NOW, I'm gonna have the email checked when the user presses submit button -- easiest to impleent
 import { useState } from 'react'
+import { useNavigate } from "react-router-dom" 
 import { globals } from '../globals'
 // login stores state of all forms
 // when you click submit, it checks the value of the email form to see whether that email is in use
@@ -30,17 +31,26 @@ import { globals } from '../globals'
 // else, attempt a sign up
 
 
-export function Login({authenticated, setAuthenticated, path /* where the person was when they got sent to login */}){
+export function Login({authenticated, setAuthenticated }){
     let [loginState, setLoginState] = useState(true) // true initially, false if email not found
 
     let [emailInput, setEmailInput] = useState('')
     let [pwInput, setPwInput] = useState('')
     let [confPwInput, setConfPwInput] = useState('')
 
+    const navigate = useNavigate()
+    const confirmPasswordMessage = 'Confirm password to create account'
+    const initialMessage = 'If the specified account doesnt exist, you will be prompted to make one'
+    const authSuccessfulMessage = 'Authentication successful. Sending you home.'
+    let [messageBoardContent, setMessageBoardContent] = useState(initialMessage)
 
-    if (!path){ // path not specided
-        path = '/search'
+    function onSuccessfulAuth() {
+        setMessageBoardContent(authSuccessfulMessage)
+        setTimeout(() => {
+            navigate('/')
+        }, 2000)
     }
+
 
     async function checkEmail(){
         console.log(emailInput)
@@ -70,6 +80,8 @@ export function Login({authenticated, setAuthenticated, path /* where the person
         loginState = data?.emailInUse ?? false // if request times out bc db offline
         console.log(loginState)
         setLoginState(loginState)
+
+        setMessageBoardContent(loginState ? initialMessage : confirmPasswordMessage)
         return loginState // change
     }
 
@@ -86,7 +98,9 @@ export function Login({authenticated, setAuthenticated, path /* where the person
                 authenticated = true
                 setAuthenticated(authenticated)
                 console.log(result.message)
-                return loginState// should like redirect them to a dashboard or search or something?
+                // redirect home
+                onSuccessfulAuth()
+                return loginState
             }
             // on failure
             console.log(result.message)
@@ -98,6 +112,9 @@ export function Login({authenticated, setAuthenticated, path /* where the person
             authenticated = true
             setAuthenticated(authenticated)
             console.log(result.message)
+            setMessageBoardContent(authSuccessfulMessage)
+            // redirect home
+            onSuccessfulAuth()
             return loginState
         }
         // failure
@@ -108,13 +125,13 @@ export function Login({authenticated, setAuthenticated, path /* where the person
     return (
         <>
             <h1>{loginState ? '*Login* / Sign Up' : 'Login / *Sign Up*'}</h1>
-            <h3>DEBUG: {authenticated ? 'authenticated' : 'not authenticated'}</h3>
+            {/* <h3>DEBUG: {authenticated ? 'authenticated' : 'not authenticated'}</h3> */}
             <form class="login-form">
                 <input class="login-input center-block" type='email' placeholder='email' onChange={e => setEmailInput(e.target.value)}></input>
                 <input class="login-input center-block" type='password' placeholder='password' onChange={e => setPwInput(e.target.value)}></input>
                 <ConfPassword loginSt={loginState} confInp={confPwInput} setConfInp={setConfPwInput} />
                 <SubmitBtn valid={handleSubmit} loginSt={loginState} setLoginSt={setLoginState}/>
-                <p class="login-p">If the specified account doesnt exist, you will be prompted to make one</p>
+                <p class="login-p">{messageBoardContent}</p>
             </form>
         </>
     )
