@@ -38,7 +38,7 @@ export function Leaderboard() {
 
     return (
         <>
-            <h1>Results</h1>
+            <h1>Leaderboard</h1>
             <h3>See our top contributors!</h3>
             <p className='status-box'>{loading ? 'Loading...' : ''}</p>
             <table class='boardTable'>

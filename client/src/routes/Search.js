@@ -78,8 +78,9 @@ export function Search() { // issue: every search interpreted as text search
     // todo: add missing params
     return (
         <>
-            <h1>Search</h1>
-            <h3>What are you looking for today?</h3>
+            <h1>Search for a Test</h1>
+            <h2 class ='search-h3'>What are you looking for today?</h2>
+            <h3>Search by categories:</h3>
             <form class='search-form'>
                 <div class='search-div'>
                     <label class='search-label' for='documentType'>I WANT TO FIND A</label>
@@ -121,17 +122,18 @@ export function Search() { // issue: every search interpreted as text search
                     <label class='search-label' for='has-solutions'>WITH SOLUTIONS</label>
                     <input class='search-input' name='has-solutions' type='checkbox' onChange={(event)=> {setSolutions(event.target.checked)}} />
                 </div>
-                <button class='search-button center-block' type="submit" label="search" onClick={(e) => sendToResults(e, false)} >SEARCH</button>
+                <button class='search-button1 center-block' type="submit" label="search" onClick={(e) => sendToResults(e, false)} >SEARCH</button>
             </form>
-            <form>
-                <h1>OR</h1> {/* this is probably too big feel free to change */}
-                <label for='keyword-search'>Keyword search through pdf content</label>
-                <input type='text' name='keyword-search' onChange={(e) => setKeywordSearchInput(e.target.value)}/>
-                <button type='submit' onClick={(e) => sendToResults(e, true)}>SEARCH</button>
+            <form class='keyword-form'>
+                <h2 class='search-h2'>OR</h2> {/* this is probably too big feel free to change */}
+                <h3>Keyword search through pdf content:</h3>
+                <label for='keyword-search'></label>
+                <input class='keyword-input center-block' type='text' name='keyword-search' onChange={(e) => setKeywordSearchInput(e.target.value)}/>
+                <button class='search-button2 center-block' type='submit' onClick={(e) => sendToResults(e, true)}>SEARCH</button>
                 <p>{keywordSearchError}</p>
             </form>
         </>
-        )
+    )
 }
 
 
