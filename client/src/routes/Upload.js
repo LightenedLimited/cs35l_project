@@ -160,7 +160,7 @@ export function Upload() {
             {/* add file */}
             <div className='file-input'>
                 <label className='upload-label' for='user-description'>Description/notes (optional) (max 300 chars)</label>
-                <input className= 'upload-input center-block' type='text' maxLength={300} onChange={(newValue) => setDescription(newValue)} />
+                <input className= 'upload-input center-block' type='text' maxLength={300} onChange={(event) => setDescription(event.target.value)} />
             </div>
             <input type='file' onChange={handleFileChange}/>
             <p className='error-board'>{error}</p>

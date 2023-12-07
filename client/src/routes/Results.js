@@ -12,16 +12,28 @@ export function Results() {
     const [loading, setLoading] = useState(false)
     let { query } = useParams()
     const decoded = decodeURI(query) // might need to put all this in useEffect
-    let filter_body = parseUrl(decoded)
+    let parsed = parseUrl(decoded) // FIX!
     // const encoded = encodeURI(JSON.stringify(body))
 
-    console.log(filter_body); 
+    console.log(parsed); 
 
     DummyFetch()
     
     useEffect(() => {
         setLoading(true)
-        fetch(`${globals.server_url}/pdfs/search`, {
+        let url = globals.server_url
+        let body = {}
+        if (parsed.textSearch){
+            url += '/pdfs/search/text'
+            body['text'] = parsed.content.text // just text here
+        }
+        else {
+            url += '/pdfs/search'
+            body['filter'] = parsed // parsed should be an object
+        }
+
+        // todo: MAKE WORK!
+        fetch(url, {
             credentials: 'include',
             headers: {
                 'Accept': 'application/json',
@@ -29,10 +41,7 @@ export function Results() {
             },
             method: 'POST',
             mode: 'cors',
-            body: JSON.stringify({
-                filter: {
-                    filter_body
-                }})
+            body: JSON.stringify(body)
         }).then(res => res.json())
         .then(data =>{
             // sort by relevance feature
@@ -60,25 +69,36 @@ export function Results() {
 
 
 function parseUrl(urlString){
-    let formatted = urlString.slice(1)
-    let args = formatted.split(':')
-    // FORMAT FOR QUERIES:
-    /* :[subject]:[class]:[professor]:[year]:[has solutions]:[test type]:[quarter] */
-    const body = {
-        subject: args[0],
-        class: args[1],
-        professor: args[2],
-        year: args[3],
-        has_solution: (args[4] === 'true') ? true : '',
-        test_type: args[5],
-        quarter: args[6],
+    if (urlString[0] !== ':' && urlString[0] !== '-'){ // malformed url
+        urlString = ':::::::' // no params
     }
-    for (const prop in body){
-        if (body[prop] === '' || body[prop] === undefined){
-            delete body[prop]
+    if (urlString[0] === ':'){
+        let formatted = urlString.slice(1)
+        let args = formatted.split(':')
+
+        if (args.length != 7){ // malformed url, pt2
+            args = Array.prototype(9).fill('')
         }
+        // FORMAT FOR QUERIES:
+        /* :[subject]:[class]:[professor]:[year]:[has solutions]:[test type]:[quarter] */
+        const body = {
+            subject: args[0],
+            class: args[1],
+            professor: args[2],
+            year: args[3],
+            has_solution: (args[4] === 'true') ? true : '',
+            test_type: args[5],
+            quarter: args[6],
+        }
+        for (const prop in body){
+            if (body[prop] === '' || body[prop] === undefined){
+                delete body[prop]
+            }
+        }
+        return {content: body, textSearch: false}
     }
-    return body
+    const body = {text: urlString.slice(1)}
+    return {content: body, textSearch: true }
 }
 
 // sort tests by number of downloads in descending order

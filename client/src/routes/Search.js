@@ -27,7 +27,7 @@ const selectStyles = {
     }),
 }
 
-export function Search() {
+export function Search() { // issue: every search interpreted as text search
     //input boxes
     const [testType, setTestType] = useState("")
     const [subject, setSubject] = useState("")
@@ -37,22 +37,43 @@ export function Search() {
     const [solutions, setSolutions] = useState(false)
     const [quarter, setQuarter] = useState(""); 
 
+    // keyword search
+    const [keywordSearchInput, setKeywordSearchInput] = useState('')
+    const [keywordSearchError, setKeywordSearchError] = useState('')
+    const malformedSearchMessage = 'Only use numbers, digits, and spaces in your search'
+
     const navigate = useNavigate()
 
     DummyFetch()
-    function sendToResults(e){
-        e.preventDefault()
-        // FORMAT FOR QUERIES:
+    function sendToResults(e, isKeywordSearch){
+        // FORMAT FOR BASIC QUERIES:
         /* :[subject]:[class]:[professor]:[year]:[has solutions]:[test type]:[quarter] */
+        // FORMAT FOR KEYWORD QUERIES:
+        /* -[query text] */
+        e.preventDefault()
+        if (!isKeywordSearch){
 
-        const queries = [subject, className, professor, year, solutions, testType, quarter]
-        for (let i = 0; i < queries.length; i++){
-            queries[i] = queries[i]?.label ?? ''
+            const queries = [subject, className, professor, year, solutions, testType, quarter]
+            for (let i = 0; i < queries.length; i++){
+                queries[i] = queries[i]?.label ?? ''
+            }
+
+            let queryString = ':' + queries.join(':')
+            console.log(queryString)
+            navigate('/results/' + encodeURI(queryString))
+            return
         }
-
-        let queryString = ':' + queries.join(':')
-        console.log(queryString)
+        // validate search query
+        console.log(keywordSearchInput)
+        for (let i = 0; i < keywordSearchInput.length; i++){
+            if (!isLetterOrDigit(keywordSearchInput[i])){
+                setKeywordSearchError(malformedSearchMessage)
+                return
+            }
+        }
+        let queryString = '-' + keywordSearchInput
         navigate('/results/' + encodeURI(queryString))
+        return
     }
     // todo: add missing params
     return (
@@ -100,7 +121,14 @@ export function Search() {
                     <label class='search-label' for='has-solutions'>WITH SOLUTIONS</label>
                     <input class='search-input' name='has-solutions' type='checkbox' onChange={(event)=> {setSolutions(event.target.checked)}} />
                 </div>
-                <button class='search-button center-block' type="submit" label="search" onClick={(e) => sendToResults(e)} >SEARCH</button>
+                <button class='search-button center-block' type="submit" label="search" onClick={(e) => sendToResults(e, false)} >SEARCH</button>
+            </form>
+            <form>
+                <h1>OR</h1> {/* this is probably too big feel free to change */}
+                <label for='keyword-search'>Keyword search through pdf content</label>
+                <input type='text' name='keyword-search' onChange={(e) => setKeywordSearchInput(e.target.value)}/>
+                <button type='submit' onClick={(e) => sendToResults(e, true)}>SEARCH</button>
+                <p>{keywordSearchError}</p>
             </form>
         </>
         )
@@ -158,23 +186,9 @@ async function getUniqueList(filter){
 const testTypeList = ["Quiz", "Midterm", "Final", "Practice Quiz", "Practice Midterm", "Practice Final"]
 const quartersList = ["Fall", "Winter", "Spring", "Summer"]
 
-// const solutionsList = ['Solutions']
-// solutions should be a checkbox
 
 
-/* THIS FUNCTION MAY BE NEEDED IF WE WANT TO USE CHECKS INSTEAD OF DROP DOWNS
-function CheckBox({ state, setState, label }) {
-    return (
-        <>
-            <label>
-                <input
-                    type='checkbox'
-                    checked={state}
-                    onChange={(e) => setState(e.target.checked)}
-                ></input>
-                {label}
-            </label>
-        </>
-    )
+// thanks jack
+function isLetterOrDigit(c) {
+    return (c >= 'a' && c <= 'z') || (c >= 'A' && c <= 'Z') || (c >= '0' && c <= '9') || c === ' '
 }
-*/

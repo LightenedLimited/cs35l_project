@@ -10,6 +10,7 @@ export async function DummyFetch(){
         if (res.status === 401){
             console.log('res not good')
             navigate('/login')
+            return
         }
     } catch(err){
         return false
