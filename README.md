@@ -28,8 +28,6 @@ Any [MongoDB instance works](https://www.mongodb.com/), but we prefer to utilize
 
 ### Algolia Setup
 
-INSERT HHERE
-
 1. We register an account with [Algolia](https://dashboard.algolia.com/signup/personal_information). It will prompt you with a series of questions, it's not really important what you answer. 
 2. Click the 'API Keys' tab in the Welcome section of the dashboard. 
 ![welcome](./docs/images/algolia_welcome.png)
