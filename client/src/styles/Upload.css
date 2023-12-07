@@ -68,6 +68,13 @@
     border-color: #78b7b1;
 }
 
+.submit-button:active {
+    background-color: #78b7b1;
+    border-color: #78b7b1;
+    padding: 0.8em;
+    margin-bottom: 0.4em;
+}
+
 .solutions-checkbox{
     flex-direction: row;
     display: flex;
