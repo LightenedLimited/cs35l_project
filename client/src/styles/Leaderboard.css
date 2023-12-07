@@ -1,9 +1,50 @@
 /* style leaderboard page */
 
 table, th, td {
-    border: 1px solid;
     border-collapse: collapse;
     text-align: center;
     margin-left:auto;
     margin-right:auto;
+    border-bottom: 1px solid;
 }
+
+.boardTable {
+    font-weight: 600;
+    color: #3b74b5;
+    background-color: white;
+    border-width: 0.25em;
+    width: 60%; 
+    border-radius: 10px;
+    overflow: hidden;
+}
+
+.boardth {
+    height: 50px;
+    border-width: 0.25em;
+    color: white;
+    border-color: #274c77;
+    background-color: #274c77;
+}
+
+td {
+    height: 30px;
+}
+
+.top3Cell {
+    font-weight: bold;
+    color: #0b396d;
+    border-color: #274c77;
+    background-color: #e7effa;
+    height: 40px;
+  }
+
+.rankImage {
+    background-position-x: 5%;
+    background-position-y: 50%;
+    background-repeat: no-repeat;
+    background-image: url('images/medal.png');
+    background-color: #e7effa;
+    font-weight: bold;
+    color: #0b396d;
+}
+

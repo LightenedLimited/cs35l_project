@@ -49,24 +49,23 @@
 }
 
 .submit-button{
-    color: #fff;
-    text-align: center;
-    border-radius: 10px;
-    background-color: #0094ff;
-    align-self: center;
-    display:block;
-
-    justify-content: center;
-    padding: 14px 25px 14px 25px;
-    font: 600 20px Montserrat, sans-serif;
-    margin: 20px auto 0 auto;
-    transition-duration: 0.4s;
+    font-family: 'Montserrat', sans-serif;
+    cursor: pointer;
+    box-sizing: border-box;
+    border-radius: 3em;
+    border-color: #549892;
+    border-style:solid;
+    background-color: #66a39d;
+    font-size: medium;
+    font-weight: 900;
+    color: white;
+    letter-spacing: 0.1em;
+    padding: 1em;
 }
 
 .submit-button:hover{
-    background-color: #fff;
-    color: #0094ff;
-    border: 2px solid #0094ff;
+    background-color: #78b7b1;
+    border-color: #78b7b1;
 }
 
 .solutions-checkbox{
