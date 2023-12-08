@@ -24,7 +24,7 @@ export function Results() {
         let body = {}
         if (parsed.textSearch){
             url += '/pdfs/search/text'
-            body.text = parsed.content.text // just text here
+            body.text = parsed.content // just text here
             console.log(body)
         }
         else {
